@@ -15,6 +15,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
      */
     public MDIPrincipal() {
         initComponents();
+        super.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -27,12 +28,9 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         desktopPane = new javax.swing.JDesktopPane();
-        jLabel1 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
-        openMenuItem = new javax.swing.JMenuItem();
-        saveMenuItem = new javax.swing.JMenuItem();
-        saveAsMenuItem = new javax.swing.JMenuItem();
+        mnuBoletos = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         cutMenuItem = new javax.swing.JMenuItem();
@@ -45,25 +43,22 @@ public class MDIPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("jLabel1");
-        desktopPane.add(jLabel1);
-        jLabel1.setBounds(180, 10, 34, 14);
-
         fileMenu.setMnemonic('f');
-        fileMenu.setText("File");
+        fileMenu.setText("Gestion");
+        fileMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileMenuActionPerformed(evt);
+            }
+        });
 
-        openMenuItem.setMnemonic('o');
-        openMenuItem.setText("Open");
-        fileMenu.add(openMenuItem);
-
-        saveMenuItem.setMnemonic('s');
-        saveMenuItem.setText("Save");
-        fileMenu.add(saveMenuItem);
-
-        saveAsMenuItem.setMnemonic('a');
-        saveAsMenuItem.setText("Save As ...");
-        saveAsMenuItem.setDisplayedMnemonicIndex(5);
-        fileMenu.add(saveAsMenuItem);
+        mnuBoletos.setMnemonic('o');
+        mnuBoletos.setText("Boletos");
+        mnuBoletos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuBoletosActionPerformed(evt);
+            }
+        });
+        fileMenu.add(mnuBoletos);
 
         exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Exit");
@@ -130,6 +125,17 @@ public class MDIPrincipal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
+    private void fileMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fileMenuActionPerformed
+
+    private void mnuBoletosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBoletosActionPerformed
+        // TODO add your handling code here:
+        FrmBoleto frm1 = new FrmBoleto();
+        frm1.setVisible(true);
+        this.desktopPane.add(frm1);
+    }//GEN-LAST:event_mnuBoletosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -177,12 +183,9 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem openMenuItem;
+    private javax.swing.JMenuItem mnuBoletos;
     private javax.swing.JMenuItem pasteMenuItem;
-    private javax.swing.JMenuItem saveAsMenuItem;
-    private javax.swing.JMenuItem saveMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }
