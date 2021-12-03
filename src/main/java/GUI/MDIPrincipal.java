@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import gestiones.*;
+
 /**
  *
  * @author Dennis2
@@ -11,8 +13,15 @@ package GUI;
 public class MDIPrincipal extends javax.swing.JFrame {
 
     /**
-     * Creates new form MDI_Principal
+     * Ubicar todas las gestiones
      */
+    
+    public static GestionBoleto gBoleto = new GestionBoleto();
+    public static GestionOrigen gOrigen = new GestionOrigen();
+    public static GestionDestino gDestino = new GestionDestino();
+    public static GestionPasajero gPasajero = new GestionPasajero();
+    
+    
     public MDIPrincipal() {
         initComponents();
         super.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
@@ -31,6 +40,9 @@ public class MDIPrincipal extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         mnuBoletos = new javax.swing.JMenuItem();
+        mnuOrigen = new javax.swing.JMenuItem();
+        mnuDestino = new javax.swing.JMenuItem();
+        mnuPasajero = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         cutMenuItem = new javax.swing.JMenuItem();
@@ -59,6 +71,25 @@ public class MDIPrincipal extends javax.swing.JFrame {
             }
         });
         fileMenu.add(mnuBoletos);
+
+        mnuOrigen.setText("Ciudad de Origen");
+        mnuOrigen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuOrigenActionPerformed(evt);
+            }
+        });
+        fileMenu.add(mnuOrigen);
+
+        mnuDestino.setText("Ciudad de Destino");
+        fileMenu.add(mnuDestino);
+
+        mnuPasajero.setText("Pasajero");
+        mnuPasajero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPasajeroActionPerformed(evt);
+            }
+        });
+        fileMenu.add(mnuPasajero);
 
         exitMenuItem.setMnemonic('x');
         exitMenuItem.setText("Exit");
@@ -136,6 +167,20 @@ public class MDIPrincipal extends javax.swing.JFrame {
         this.desktopPane.add(frm1);
     }//GEN-LAST:event_mnuBoletosActionPerformed
 
+    private void mnuOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOrigenActionPerformed
+        // TODO add your handling code here:
+        FrmOrigen frm1 = new FrmOrigen();
+        frm1.setVisible(true);
+        this.desktopPane.add(frm1);
+    }//GEN-LAST:event_mnuOrigenActionPerformed
+
+    private void mnuPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPasajeroActionPerformed
+        // TODO add your handling code here:
+        FrmPasajero frm1 = new FrmPasajero();
+        frm1.setVisible(true);
+        this.desktopPane.add(frm1);
+    }//GEN-LAST:event_mnuPasajeroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -185,6 +230,9 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem mnuBoletos;
+    private javax.swing.JMenuItem mnuDestino;
+    private javax.swing.JMenuItem mnuOrigen;
+    private javax.swing.JMenuItem mnuPasajero;
     private javax.swing.JMenuItem pasteMenuItem;
     // End of variables declaration//GEN-END:variables
 

@@ -98,6 +98,22 @@ public class GestionPasajero {
 				System.out.println(lstPasajero.get(i));
 			}
 		}
+
+                
+		public Object[][] GetArrayGestion() {
+                    // String codigo, dni, nombre, apellido
+                    Object [][] array=new Object[this.lstPasajero.size()][4];
+			for(int i=0;i<lstPasajero.size();i++) {
+				System.out.println(lstPasajero.get(i));
+                                array[i][0]= lstPasajero.get(i).get_codigo();
+                                array[i][1]= lstPasajero.get(i).get_dni();
+                                array[i][2]= lstPasajero.get(i).get_nombre();
+                                array[i][3]= lstPasajero.get(i).get_apellido();
+                                
+			}
+                return array;
+                }
+                
 		
 		public Pasajero getElementoPorPosicion(int posicion) {
 			return lstPasajero.get(posicion);
