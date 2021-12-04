@@ -98,6 +98,18 @@ public class GestionDestino {
 			System.out.println(lstDestino.get(i));
 		}
 	}
+        
+        public Object[][] GetArrayGestion() {
+            // String codigo, descripcion
+            Object [][] array=new Object[this.lstDestino.size()][4];
+                for(int i=0;i<lstDestino.size();i++) {
+                        System.out.println(lstDestino.get(i));
+                        array[i][0]= lstDestino.get(i).get_codigo();
+                        array[i][1]= lstDestino.get(i).get_descripcion();
+                }
+        return array;
+        }        
+        
 	
 	public Destino getElementoPorPosicion(int posicion) {
 		return lstDestino.get(posicion);

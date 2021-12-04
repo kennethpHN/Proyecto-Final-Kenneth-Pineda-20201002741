@@ -81,6 +81,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
         fileMenu.add(mnuOrigen);
 
         mnuDestino.setText("Ciudad de Destino");
+        mnuDestino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuDestinoActionPerformed(evt);
+            }
+        });
         fileMenu.add(mnuDestino);
 
         mnuPasajero.setText("Pasajero");
@@ -180,6 +185,13 @@ public class MDIPrincipal extends javax.swing.JFrame {
         frm1.setVisible(true);
         this.desktopPane.add(frm1);
     }//GEN-LAST:event_mnuPasajeroActionPerformed
+
+    private void mnuDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDestinoActionPerformed
+        // TODO add your handling code here:
+        FrmDestino frm1 = new FrmDestino();
+        frm1.setVisible(true);
+        this.desktopPane.add(frm1);
+    }//GEN-LAST:event_mnuDestinoActionPerformed
 
     /**
      * @param args the command line arguments

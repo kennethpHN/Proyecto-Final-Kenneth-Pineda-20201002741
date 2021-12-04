@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import clases.Destino;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Pinedas
@@ -13,6 +15,7 @@ public class FrmDestino extends javax.swing.JInternalFrame {
     /**
      * Creates new form FrmDestino
      */
+    private boolean _agregando;
     public FrmDestino() {
         initComponents();
     }
@@ -31,13 +34,14 @@ public class FrmDestino extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtCiudades = new javax.swing.JTable();
+        jtDestino = new javax.swing.JTable();
         txtDescripcion = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -49,6 +53,11 @@ public class FrmDestino extends javax.swing.JInternalFrame {
         jLabel1.setText("Ciudades de Destino");
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
 
@@ -59,13 +68,17 @@ public class FrmDestino extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSalir.setText("Salir");
-
         jLabel8.setText("Codigo:");
 
         jLabel3.setText("Descripcion:");
 
-        jtCiudades.setModel(new javax.swing.table.DefaultTableModel(
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
+
+        jtDestino.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -76,13 +89,22 @@ public class FrmDestino extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jtCiudades);
+        jScrollPane2.setViewportView(jtDestino);
 
         txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDescripcionActionPerformed(evt);
             }
         });
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setText("Salir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,7 +131,7 @@ public class FrmDestino extends javax.swing.JInternalFrame {
                                 .addGap(169, 169, 169))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnNuevo)
                                 .addGap(18, 18, 18)
@@ -119,15 +141,17 @@ public class FrmDestino extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnEliminar)
                                 .addGap(18, 18, 18)
+                                .addComponent(btnGuardar)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnSalir))
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 10, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -142,7 +166,9 @@ public class FrmDestino extends javax.swing.JInternalFrame {
                     .addComponent(btnEditar)
                     .addComponent(btnBuscar)
                     .addComponent(btnEliminar)
-                    .addComponent(btnSalir))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSalir)
+                        .addComponent(btnGuardar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27))
@@ -153,28 +179,83 @@ public class FrmDestino extends javax.swing.JInternalFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+        this._agregando = true;
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescripcionActionPerformed
 
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        
+        if(this._agregando){ // agregara
+            /**
+             * 1. Solicitar valores
+             * 2. Crear instancia
+             * 3. Setear valores a instancia
+             * 4. Agregar instancia a la gestion
+             * 5. Mostrar valores
+             */
+            
+            //Paso 1
+            String codigo,descripcion;
+            codigo = this.txtCodigo.getText();
+            descripcion = this.txtDescripcion.getText();
+
+
+            //Paso 2
+            Destino destino = new Destino();
+            
+            //Paso 3
+            destino.set_codigo(Integer.parseInt(codigo));
+            destino.set_descripcion(descripcion);
+            
+            
+            //Paso 4
+            MDIPrincipal.gDestino.Agregar(destino);
+            
+            //Paso 5
+            actualizarElementosTabla();
+            
+        }else{ // editara o modificara
+            
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        this._agregando = false;
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    public void actualizarElementosTabla(){
+    // String codigo, dni, nombre, apellido
+    String[] titulos = {"Código","Descripción"};
+    DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gDestino.GetArrayGestion(), titulos);
+    this.jtDestino.setModel(dt);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jtCiudades;
+    private javax.swing.JTable jtDestino;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
     // End of variables declaration//GEN-END:variables

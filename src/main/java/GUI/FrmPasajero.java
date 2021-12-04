@@ -84,6 +84,12 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Nombres:");
 
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
+
         jtPasajero.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -264,6 +270,10 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
 
     public void actualizarElementosTabla(){
         // String codigo, dni, nombre, apellido

@@ -98,6 +98,17 @@ public class GestionOrigen {
 			System.out.println(lstOrigen.get(i));
 		}
 	}
+        
+        public Object[][] GetArrayGestion() {
+            // String codigo, descripcion
+            Object [][] array=new Object[this.lstOrigen.size()][4];
+                for(int i=0;i<lstOrigen.size();i++) {
+                        System.out.println(lstOrigen.get(i));
+                        array[i][0]= lstOrigen.get(i).get_codigo();
+                        array[i][1]= lstOrigen.get(i).get_descripcion();
+                }
+        return array;
+        } 
 	
 	public Origen getElementoPorPosicion(int posicion) {
 		return lstOrigen.get(posicion);

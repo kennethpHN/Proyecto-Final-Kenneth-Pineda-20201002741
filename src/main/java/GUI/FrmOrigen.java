@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import clases.Origen;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Pinedas
@@ -13,6 +16,7 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
     /**
      * Creates new form FrmCiudades
      */
+    private boolean _agregando;
     public FrmOrigen() {
         initComponents();
     }
@@ -27,7 +31,7 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtCiudades = new javax.swing.JTable();
+        jtOrigen = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnEditar = new javax.swing.JButton();
@@ -40,7 +44,7 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
         txtDescripcion = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
 
-        jtCiudades.setModel(new javax.swing.table.DefaultTableModel(
+        jtOrigen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -51,7 +55,7 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jtCiudades);
+        jScrollPane2.setViewportView(jtOrigen);
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +67,11 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
         jLabel1.setText("Ciudades de Origen");
 
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setText("Buscar");
 
@@ -86,6 +95,11 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
         });
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -160,6 +174,7 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+        this._agregando = true;
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -170,6 +185,53 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescripcionActionPerformed
 
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        this._agregando = false;
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        if(this._agregando){ // agregara
+            /**
+             * 1. Solicitar valores
+             * 2. Crear instancia
+             * 3. Setear valores a instancia
+             * 4. Agregar instancia a la gestion
+             * 5. Mostrar valores
+             */
+            
+            //Paso 1
+            String codigo,descripcion;
+            codigo = this.txtCodigo.getText();
+            descripcion = this.txtDescripcion.getText();
+
+
+            //Paso 2
+            Origen origen = new Origen();
+            
+            //Paso 3
+            origen.set_codigo(Integer.parseInt(codigo));
+            origen.set_descripcion(descripcion);
+            
+            
+            //Paso 4
+            MDIPrincipal.gOrigen.Agregar(origen);
+            
+            //Paso 5
+            actualizarElementosTabla();
+            
+        }else{ // editara o modificara
+            
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    public void actualizarElementosTabla(){
+        // String codigo, dni, nombre, apellido
+        String[] titulos = {"Código","Descripción"};
+        DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gOrigen.GetArrayGestion(), titulos);
+        this.jtOrigen.setModel(dt);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -182,7 +244,7 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jtCiudades;
+    private javax.swing.JTable jtOrigen;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
     // End of variables declaration//GEN-END:variables
