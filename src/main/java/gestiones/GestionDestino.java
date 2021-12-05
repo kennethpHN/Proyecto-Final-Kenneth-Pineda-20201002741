@@ -1,8 +1,8 @@
 package gestiones;
 import clases.Destino;
 import java.util.LinkedList;
-
-public class GestionDestino {
+import java.io.Serializable;
+public class GestionDestino implements Serializable {
 	
 	private LinkedList<Destino> lstDestino = new LinkedList<>();
 

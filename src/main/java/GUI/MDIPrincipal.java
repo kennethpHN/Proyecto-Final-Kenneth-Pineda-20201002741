@@ -4,7 +4,9 @@
  */
 package GUI;
 
+import Util.AdminSerializacion;
 import gestiones.*;
+import java.awt.Dimension;
 
 /**
  *
@@ -25,6 +27,17 @@ public class MDIPrincipal extends javax.swing.JFrame {
     public MDIPrincipal() {
         initComponents();
         super.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        
+        //De-Serialización
+        
+        try{
+            gDestino= (GestionDestino)AdminSerializacion.de_serealizacion("gDestino.obj");
+            if(gDestino==null){
+                //gDestino=new GestionDestino();
+                
+            }
+        }catch(Exception e){}
+        
     }
 
     /**
@@ -168,6 +181,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private void mnuBoletosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBoletosActionPerformed
         // TODO add your handling code here:
         FrmBoleto frm1 = new FrmBoleto();
+        
+        Dimension JInternal = frm1.getSize(); //dimension de frame
+        Dimension desktopSize = this.getSize();
+        frm1.setLocation((desktopSize.width-JInternal.width)/2, (desktopSize.height-JInternal.height)/2);
+        
         frm1.setVisible(true);
         this.desktopPane.add(frm1);
     }//GEN-LAST:event_mnuBoletosActionPerformed
@@ -175,6 +193,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private void mnuOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOrigenActionPerformed
         // TODO add your handling code here:
         FrmOrigen frm1 = new FrmOrigen();
+        
+        Dimension JInternal = frm1.getSize(); //dimension de frame
+        Dimension desktopSize = this.getSize();
+        frm1.setLocation((desktopSize.width-JInternal.width)/2, (desktopSize.height-JInternal.height)/2);
+        
         frm1.setVisible(true);
         this.desktopPane.add(frm1);
     }//GEN-LAST:event_mnuOrigenActionPerformed
@@ -182,6 +205,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private void mnuPasajeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPasajeroActionPerformed
         // TODO add your handling code here:
         FrmPasajero frm1 = new FrmPasajero();
+
+        Dimension JInternal = frm1.getSize(); //dimension de frame
+        Dimension desktopSize = this.getSize();
+        frm1.setLocation((desktopSize.width-JInternal.width)/2, (desktopSize.height-JInternal.height)/2);
+        
         frm1.setVisible(true);
         this.desktopPane.add(frm1);
     }//GEN-LAST:event_mnuPasajeroActionPerformed
@@ -189,6 +217,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private void mnuDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDestinoActionPerformed
         // TODO add your handling code here:
         FrmDestino frm1 = new FrmDestino();
+        
+        Dimension JInternal = frm1.getSize(); //dimension de frame
+        Dimension desktopSize = this.getSize();
+        frm1.setLocation((desktopSize.width-JInternal.width)/2, (desktopSize.height-JInternal.height)/2);
+        
         frm1.setVisible(true);
         this.desktopPane.add(frm1);
     }//GEN-LAST:event_mnuDestinoActionPerformed

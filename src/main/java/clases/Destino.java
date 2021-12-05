@@ -1,6 +1,8 @@
 package clases;
 
-public class Destino extends Ciudades{
+import java.io.Serializable;
+
+public class Destino extends Ciudades implements Serializable{
 
 	public Destino() {
 		super();
