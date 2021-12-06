@@ -50,7 +50,7 @@ public class Factura implements Calculo, Serializable{
 	public int obtenerDetallePorCodigoProducto(int codigoProducto) {
 		int posicion=-1;
 		for(int i=0;i<=_detalleFactura.size();i++) {
-			if(this._detalleFactura.get(i).get_boleto().get_id()==codigoProducto) {
+			if(this._detalleFactura.get(i).get_boleto().get_codigo()==codigoProducto) {
 				posicion=i;
 				break;
 			}

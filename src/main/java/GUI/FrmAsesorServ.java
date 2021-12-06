@@ -6,7 +6,7 @@ package GUI;
 
 import Util.AdminArchivos;
 import Util.AdminSerializacion;
-import clases.Pasajero;
+import clases.AsesorServ;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,19 +15,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Pinedas
  */
-public class FrmPasajero extends javax.swing.JInternalFrame {
+public class FrmAsesorServ extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form FrmPersona
+     * Creates new form FrmAsesorServ
      */
     private boolean _agregando;
     private int _indiceSeleccion;
 
-    public FrmPasajero() {
+    public FrmAsesorServ() {
         initComponents();
-        this.setTitle("Gestión de Pasajero");
+        this.setTitle("Gestión de Asesor de Servicio");
         actualizarElementosTabla();
-
     }
 
     /**
@@ -39,71 +38,25 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnNuevo = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtPasajero = new javax.swing.JTable();
-        txtCodigo = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
-        txtApellido = new javax.swing.JTextField();
+        jtAsesorServ = new javax.swing.JTable();
+        btnGuardar = new javax.swing.JButton();
         txtDNI = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
         JLabel4 = new javax.swing.JLabel();
+        btnEliminar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
+        btnSalir = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
         btnReporte = new javax.swing.JButton();
+        txtNombre = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        btnEditar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JTextField();
 
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Nombres:");
-
-        jLabel8.setText("Codigo:");
-
-        jtPasajero.setModel(new javax.swing.table.DefaultTableModel(
+        jtAsesorServ.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -114,23 +67,19 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jtPasajero.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtAsesorServ.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jtPasajeroMousePressed(evt);
+                jtAsesorServMousePressed(evt);
             }
         });
-        jScrollPane2.setViewportView(jtPasajero);
+        jScrollPane2.setViewportView(jtAsesorServ);
 
-        txtCodigo.setEditable(false);
-        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
-
-        txtNombre.setEditable(false);
-
-        txtApellido.setEditable(false);
 
         txtDNI.setEditable(false);
         txtDNI.addActionListener(new java.awt.event.ActionListener() {
@@ -139,9 +88,44 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
             }
         });
 
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         JLabel4.setText("Apellidos:");
 
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
         jLabel9.setText("DNI:");
+
+        txtCodigo.setEditable(false);
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnReporte.setText("Reporte");
         btnReporte.addActionListener(new java.awt.event.ActionListener() {
@@ -149,6 +133,21 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
                 btnReporteActionPerformed(evt);
             }
         });
+
+        txtNombre.setEditable(false);
+
+        jLabel3.setText("Nombres:");
+
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("Codigo:");
+
+        txtApellido.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -223,7 +222,6 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnEditar)
@@ -239,55 +237,14 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+    private void jtAsesorServMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtAsesorServMousePressed
         // TODO add your handling code here:
-        this._agregando = true;
-
-        estadoBotones(false);
-        estadoControles(true);
-        this.txtCodigo.setText("");
-        this.txtDNI.setText("");
-        this.txtNombre.setText("");
-        this.txtApellido.setText("");
-
-    }//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        if (_indiceSeleccion >= 0) {
-            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
-            if (resultado == JOptionPane.YES_OPTION) {
-                MDIPrincipal.gPasajero.Eliminar(_indiceSeleccion);
-                actualizarElementosTabla();
-                //Paso 6: Serializar informacion
-                AdminSerializacion.serializacion(MDIPrincipal.gPasajero, "gPasajero.obj");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
+        _indiceSeleccion = jtAsesorServ.getSelectedRow();
+        if (_indiceSeleccion != -1) {
+            AsesorServ _asesorServ = MDIPrincipal.gAsesor.getElementoPorPosicion(_indiceSeleccion);
+            mostrarElemento(_asesorServ);
         }
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void txtDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDNIActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDNIActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
-        this._agregando = false;
-        estadoBotones(false);
-        estadoControles(true);
-    }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        String _codigoPasajero = JOptionPane.showInputDialog("Ingrese el código");
-        Pasajero _PasajeroEncontrado = MDIPrincipal.gPasajero.BuscarPorcodigoGetElem(Integer.parseInt(_codigoPasajero));
-        if (_PasajeroEncontrado == null) {
-            JOptionPane.showMessageDialog(this, "Elemento no encontrado");
-        } else {
-            mostrarElemento(_PasajeroEncontrado);
-        }
-    }//GEN-LAST:event_btnBuscarActionPerformed
+    }//GEN-LAST:event_jtAsesorServMousePressed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
@@ -304,21 +261,21 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
         apellido = this.txtApellido.getText();
 
         //Paso 2
-        Pasajero pasajero = new Pasajero();
+        AsesorServ asesorServ = new AsesorServ();
 
         try {
             //Paso 3
 
-            //pasajero.set_codigo(Integer.parseInt(codigo));
-            pasajero.set_dni(dni);
-            pasajero.set_nombre(nombre);
-            pasajero.set_apellido(apellido);
+            //asesorServ.set_codigo(Integer.parseInt(codigo));
+            asesorServ.set_dni(dni);
+            asesorServ.set_nombre(nombre);
+            asesorServ.set_apellido(apellido);
             if (this._agregando) { // agregara
                 /**
                  * 4. Agregar instancia a la gestion
                  */
                 //Paso 4
-                MDIPrincipal.gPasajero.Agregar(pasajero);
+                MDIPrincipal.gAsesor.Agregar(asesorServ);
             } else { // editara o modificara
                 /**
                  * 4. Editar instancia en la gestion
@@ -326,10 +283,10 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
                 //Paso 1.1
                 codigo = this.txtCodigo.getText();
                 //Paso 3.1
-                pasajero.set_codigo(Integer.parseInt(codigo));
+                asesorServ.set_codigo(Integer.parseInt(codigo));
 
                 //Paso 4
-                MDIPrincipal.gPasajero.Modificar(this._indiceSeleccion, pasajero);
+                MDIPrincipal.gAsesor.Modificar(this._indiceSeleccion, asesorServ);
             }
             //Paso 5
             actualizarElementosTabla();
@@ -337,55 +294,92 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
             estadoControles(false);
 
             //Paso 6: Serializar informacion
-            AdminSerializacion.serializacion(MDIPrincipal.gPasajero, "gPasajero.obj");
+            AdminSerializacion.serializacion(MDIPrincipal.gAsesor, "gAsesor.obj");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ha ocurrido un error: " + e.getMessage());
         }
-
-
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jtPasajeroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtPasajeroMousePressed
+    private void txtDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDNIActionPerformed
         // TODO add your handling code here:
-        _indiceSeleccion = jtPasajero.getSelectedRow();
-        if (_indiceSeleccion != -1) {
-            Pasajero _pasajero = MDIPrincipal.gPasajero.getElementoPorPosicion(_indiceSeleccion);
-            mostrarElemento(_pasajero);
+    }//GEN-LAST:event_txtDNIActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        String _codigoAsesorServ = JOptionPane.showInputDialog("Ingrese el código");
+        AsesorServ _AsesorServEncontrado = MDIPrincipal.gAsesor.BuscarPorcodigoGetElem(Integer.parseInt(_codigoAsesorServ));
+        if (_AsesorServEncontrado == null) {
+            JOptionPane.showMessageDialog(this, "Elemento no encontrado");
+        } else {
+            mostrarElemento(_AsesorServEncontrado);
         }
-    }//GEN-LAST:event_jtPasajeroMousePressed
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        if (_indiceSeleccion >= 0) {
+            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
+            if (resultado == JOptionPane.YES_OPTION) {
+                MDIPrincipal.gAsesor.Eliminar(_indiceSeleccion);
+                actualizarElementosTabla();
+                //Paso 6: Serializar informacion
+                AdminSerializacion.serializacion(MDIPrincipal.gAsesor, "gAsesor.obj");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+        this._agregando = true;
 
-    }//GEN-LAST:event_txtCodigoActionPerformed
+        estadoBotones(false);
+        estadoControles(true);
+        this.txtCodigo.setText("");
+        this.txtDNI.setText("");
+        this.txtNombre.setText("");
+        this.txtApellido.setText("");
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
         // TODO add your handling code here:
         AdminArchivos adminA = new AdminArchivos();
-        adminA.setNombreArchivo("Reporte Pasajero.csv");
-        adminA.setContenido(MDIPrincipal.gPasajero.getInfoReporte());
+        adminA.setNombreArchivo("Reporte AsesorServ.csv");
+        adminA.setContenido(MDIPrincipal.gAsesor.getInfoReporte());
         adminA.escribir();
         Toolkit.getDefaultToolkit().beep();
         JOptionPane.showMessageDialog(this, "Reporte generado correctamente");
     }//GEN-LAST:event_btnReporteActionPerformed
 
-    public void mostrarElemento(Pasajero _pasajero) {
-        this.txtCodigo.setText(Integer.toString(_pasajero.get_codigo()));
-        this.txtDNI.setText(_pasajero.get_dni());
-        this.txtNombre.setText(_pasajero.get_nombre());
-        this.txtApellido.setText(_pasajero.get_apellido());
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        // TODO add your handling code here:
+        this._agregando = false;
+        estadoBotones(false);
+        estadoControles(true);
+    }//GEN-LAST:event_btnEditarActionPerformed
+
+    public void mostrarElemento(AsesorServ _asesorServ) {
+        this.txtCodigo.setText(Integer.toString(_asesorServ.get_codigo()));
+        this.txtDNI.setText(_asesorServ.get_dni());
+        this.txtNombre.setText(_asesorServ.get_nombre());
+        this.txtApellido.setText(_asesorServ.get_apellido());
     }
 
     public void actualizarElementosTabla() {
         // String codigo, dni, nombre, apellido
         String[] titulos = {"Código", "DNI", "Nombres", "Apellidos"};
-        DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gPasajero.GetArrayGestion(), titulos);
-        this.jtPasajero.setModel(dt);
+        DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gAsesor.GetArrayGestion(), titulos);
+        this.jtAsesorServ.setModel(dt);
     }
 
     public void estadoControles(boolean _estado) {
@@ -417,7 +411,7 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jtPasajero;
+    private javax.swing.JTable jtAsesorServ;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDNI;

@@ -6,7 +6,7 @@ package GUI;
 
 import Util.AdminArchivos;
 import Util.AdminSerializacion;
-import clases.Pasajero;
+import clases.Cliente;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,19 +15,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Pinedas
  */
-public class FrmPasajero extends javax.swing.JInternalFrame {
+public class FrmCliente extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form FrmPersona
+     * Creates new form FrmCliente
      */
     private boolean _agregando;
     private int _indiceSeleccion;
 
-    public FrmPasajero() {
+    public FrmCliente() {
         initComponents();
-        this.setTitle("Gestión de Pasajero");
+        this.setTitle("Gestión de Cliente");
         actualizarElementosTabla();
-
     }
 
     /**
@@ -39,23 +38,30 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtCodigo = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
+        txtNombre = new javax.swing.JTextField();
         btnEditar = new javax.swing.JButton();
+        txtApellido = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
+        txtDNI = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
+        JLabel4 = new javax.swing.JLabel();
         btnEliminar = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        btnReporte = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtPasajero = new javax.swing.JTable();
-        txtCodigo = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
-        txtApellido = new javax.swing.JTextField();
-        txtDNI = new javax.swing.JTextField();
-        JLabel4 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        btnReporte = new javax.swing.JButton();
+        jtCliente = new javax.swing.JTable();
+
+        txtCodigo.setEditable(false);
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -64,6 +70,8 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
             }
         });
 
+        txtNombre.setEditable(false);
+
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -71,10 +79,19 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
             }
         });
 
+        txtApellido.setEditable(false);
+
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
+            }
+        });
+
+        txtDNI.setEditable(false);
+        txtDNI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDNIActionPerformed(evt);
             }
         });
 
@@ -85,12 +102,16 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
             }
         });
 
+        JLabel4.setText("Apellidos:");
+
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
             }
         });
+
+        jLabel9.setText("DNI:");
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -99,11 +120,18 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
             }
         });
 
+        btnReporte.setText("Reporte");
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
+            }
+        });
+
         jLabel3.setText("Nombres:");
 
         jLabel8.setText("Codigo:");
 
-        jtPasajero.setModel(new javax.swing.table.DefaultTableModel(
+        jtCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -114,41 +142,12 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jtPasajero.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jtPasajeroMousePressed(evt);
+                jtClienteMousePressed(evt);
             }
         });
-        jScrollPane2.setViewportView(jtPasajero);
-
-        txtCodigo.setEditable(false);
-        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoActionPerformed(evt);
-            }
-        });
-
-        txtNombre.setEditable(false);
-
-        txtApellido.setEditable(false);
-
-        txtDNI.setEditable(false);
-        txtDNI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDNIActionPerformed(evt);
-            }
-        });
-
-        JLabel4.setText("Apellidos:");
-
-        jLabel9.setText("DNI:");
-
-        btnReporte.setText("Reporte");
-        btnReporte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReporteActionPerformed(evt);
-            }
-        });
+        jScrollPane2.setViewportView(jtCliente);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -223,7 +222,6 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnEditar)
@@ -239,6 +237,10 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         this._agregando = true;
@@ -249,27 +251,7 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
         this.txtDNI.setText("");
         this.txtNombre.setText("");
         this.txtApellido.setText("");
-
     }//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        if (_indiceSeleccion >= 0) {
-            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
-            if (resultado == JOptionPane.YES_OPTION) {
-                MDIPrincipal.gPasajero.Eliminar(_indiceSeleccion);
-                actualizarElementosTabla();
-                //Paso 6: Serializar informacion
-                AdminSerializacion.serializacion(MDIPrincipal.gPasajero, "gPasajero.obj");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
-        }
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void txtDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDNIActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDNIActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
@@ -277,17 +259,6 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
         estadoBotones(false);
         estadoControles(true);
     }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-        String _codigoPasajero = JOptionPane.showInputDialog("Ingrese el código");
-        Pasajero _PasajeroEncontrado = MDIPrincipal.gPasajero.BuscarPorcodigoGetElem(Integer.parseInt(_codigoPasajero));
-        if (_PasajeroEncontrado == null) {
-            JOptionPane.showMessageDialog(this, "Elemento no encontrado");
-        } else {
-            mostrarElemento(_PasajeroEncontrado);
-        }
-    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
@@ -304,21 +275,21 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
         apellido = this.txtApellido.getText();
 
         //Paso 2
-        Pasajero pasajero = new Pasajero();
+        Cliente cliente = new Cliente();
 
         try {
             //Paso 3
 
-            //pasajero.set_codigo(Integer.parseInt(codigo));
-            pasajero.set_dni(dni);
-            pasajero.set_nombre(nombre);
-            pasajero.set_apellido(apellido);
+            //cliente.set_codigo(Integer.parseInt(codigo));
+            cliente.set_dni(dni);
+            cliente.set_nombre(nombre);
+            cliente.set_apellido(apellido);
             if (this._agregando) { // agregara
                 /**
                  * 4. Agregar instancia a la gestion
                  */
                 //Paso 4
-                MDIPrincipal.gPasajero.Agregar(pasajero);
+                MDIPrincipal.gCliente.Agregar(cliente);
             } else { // editara o modificara
                 /**
                  * 4. Editar instancia en la gestion
@@ -326,10 +297,10 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
                 //Paso 1.1
                 codigo = this.txtCodigo.getText();
                 //Paso 3.1
-                pasajero.set_codigo(Integer.parseInt(codigo));
+                cliente.set_codigo(Integer.parseInt(codigo));
 
                 //Paso 4
-                MDIPrincipal.gPasajero.Modificar(this._indiceSeleccion, pasajero);
+                MDIPrincipal.gCliente.Modificar(this._indiceSeleccion, cliente);
             }
             //Paso 5
             actualizarElementosTabla();
@@ -337,55 +308,79 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
             estadoControles(false);
 
             //Paso 6: Serializar informacion
-            AdminSerializacion.serializacion(MDIPrincipal.gPasajero, "gPasajero.obj");
+            AdminSerializacion.serializacion(MDIPrincipal.gCliente, "gCliente.obj");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ha ocurrido un error: " + e.getMessage());
         }
 
-
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void jtPasajeroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtPasajeroMousePressed
+    private void txtDNIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDNIActionPerformed
         // TODO add your handling code here:
-        _indiceSeleccion = jtPasajero.getSelectedRow();
-        if (_indiceSeleccion != -1) {
-            Pasajero _pasajero = MDIPrincipal.gPasajero.getElementoPorPosicion(_indiceSeleccion);
-            mostrarElemento(_pasajero);
+    }//GEN-LAST:event_txtDNIActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        String _codigoCliente = JOptionPane.showInputDialog("Ingrese el código");
+        Cliente _ClienteEncontrado = MDIPrincipal.gCliente.BuscarPorcodigoGetElem(Integer.parseInt(_codigoCliente));
+        if (_ClienteEncontrado == null) {
+            JOptionPane.showMessageDialog(this, "Elemento no encontrado");
+        } else {
+            mostrarElemento(_ClienteEncontrado);
         }
-    }//GEN-LAST:event_jtPasajeroMousePressed
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        if (_indiceSeleccion >= 0) {
+            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
+            if (resultado == JOptionPane.YES_OPTION) {
+                MDIPrincipal.gCliente.Eliminar(_indiceSeleccion);
+                actualizarElementosTabla();
+                //Paso 6: Serializar informacion
+                AdminSerializacion.serializacion(MDIPrincipal.gCliente, "gCliente.obj");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_txtCodigoActionPerformed
-
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
         // TODO add your handling code here:
         AdminArchivos adminA = new AdminArchivos();
-        adminA.setNombreArchivo("Reporte Pasajero.csv");
-        adminA.setContenido(MDIPrincipal.gPasajero.getInfoReporte());
+        adminA.setNombreArchivo("Reporte Cliente.csv");
+        adminA.setContenido(MDIPrincipal.gCliente.getInfoReporte());
         adminA.escribir();
         Toolkit.getDefaultToolkit().beep();
         JOptionPane.showMessageDialog(this, "Reporte generado correctamente");
     }//GEN-LAST:event_btnReporteActionPerformed
 
-    public void mostrarElemento(Pasajero _pasajero) {
-        this.txtCodigo.setText(Integer.toString(_pasajero.get_codigo()));
-        this.txtDNI.setText(_pasajero.get_dni());
-        this.txtNombre.setText(_pasajero.get_nombre());
-        this.txtApellido.setText(_pasajero.get_apellido());
+    private void jtClienteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtClienteMousePressed
+        // TODO add your handling code here:
+        _indiceSeleccion = jtCliente.getSelectedRow();
+        if (_indiceSeleccion != -1) {
+            Cliente _cliente = MDIPrincipal.gCliente.getElementoPorPosicion(_indiceSeleccion);
+            mostrarElemento(_cliente);
+        }
+    }//GEN-LAST:event_jtClienteMousePressed
+
+    public void mostrarElemento(Cliente _cliente) {
+        this.txtCodigo.setText(Integer.toString(_cliente.get_codigo()));
+        this.txtDNI.setText(_cliente.get_dni());
+        this.txtNombre.setText(_cliente.get_nombre());
+        this.txtApellido.setText(_cliente.get_apellido());
     }
 
     public void actualizarElementosTabla() {
         // String codigo, dni, nombre, apellido
         String[] titulos = {"Código", "DNI", "Nombres", "Apellidos"};
-        DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gPasajero.GetArrayGestion(), titulos);
-        this.jtPasajero.setModel(dt);
+        DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gCliente.GetArrayGestion(), titulos);
+        this.jtCliente.setModel(dt);
     }
 
     public void estadoControles(boolean _estado) {
@@ -417,7 +412,7 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jtPasajero;
+    private javax.swing.JTable jtCliente;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDNI;

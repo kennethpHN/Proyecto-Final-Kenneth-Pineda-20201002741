@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Boleto implements Serializable{
 
-	private int _id;
+	private int _codigo;
 	private Pasajero _pasajero;
 	private Origen _origen;
 	private Destino _destino;
@@ -20,11 +20,11 @@ public class Boleto implements Serializable{
 
 
 
-	public Boleto(int _id, Pasajero _pasajero, Origen _origen, Destino _destino, NumPuerta _numPuerta,
+	public Boleto(int _codigo, Pasajero _pasajero, Origen _origen, Destino _destino, NumPuerta _numPuerta,
 			HoraAbordaje _horaAbordaje, Fecha _fecha, CategVuelo _categoriaVuelo, Asiento _asiento,
 			Aerolinea _aerolinea) {
 		super();
-		this._id = _id;
+		this._codigo = _codigo;
 		this._pasajero = _pasajero;
 		this._origen = _origen;
 		this._destino = _destino;
@@ -62,12 +62,12 @@ public class Boleto implements Serializable{
 		this._aerolinea = _aerolinea;
 	}
 
-	public int get_id() {
-		return _id;
+	public int get_codigo() {
+		return _codigo;
 	}
 
-	public void set_id(int _id) {
-		this._id = _id;
+	public void set_codigo(int _codigo) {
+		this._codigo = _codigo;
 	}
 
 	public Pasajero get_pasajero() {
@@ -137,9 +137,9 @@ public class Boleto implements Serializable{
 	@Override
 	public String toString() {
 		
-		String _infoClase = String.format("\n_________\nDatos de Boleto: \nID de boleto: %d, \n%s, \n%s, \n%s, \n%s, \n%s, \n%s, \n%s, \n%s"+"\n_________\n",
+		String _infoClase = String.format("\n_________\nDatos de Boleto: \nCodigo de boleto: %d, \n%s, \n%s, \n%s, \n%s, \n%s, \n%s, \n%s, \n%s"+"\n_________\n",
 				
-				this._id,
+				this._codigo,
 				this._pasajero,
 				this._origen,
 				this._destino,
@@ -152,7 +152,7 @@ public class Boleto implements Serializable{
 				
 				);
 		
-		return  _infoClase /*"Boleto [_id=" + _id + ", _pasajero=" + _pasajero + ", _origen=" + _origen + ", _destino=" + _destino
+		return  _infoClase /*"Boleto [_codigo=" + _codigo + ", _pasajero=" + _pasajero + ", _origen=" + _origen + ", _destino=" + _destino
 				+ ", _numPuerta=" + _numPuerta + ", _horaAbordaje=" + _horaAbordaje + ", _fecha=" + _fecha
 				+ ", _categoriaVuelo=" + _categoriaVuelo + ", _asiento=" + _asiento + "]"*/;
 	}

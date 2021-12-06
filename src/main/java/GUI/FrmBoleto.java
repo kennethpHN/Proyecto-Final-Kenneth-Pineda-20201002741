@@ -313,6 +313,8 @@ public class FrmBoleto extends javax.swing.JInternalFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
+        dispose();
+        
     }//GEN-LAST:event_btnSalirActionPerformed
 
 

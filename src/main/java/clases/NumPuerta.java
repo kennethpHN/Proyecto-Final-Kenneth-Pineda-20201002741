@@ -2,31 +2,31 @@ package clases;
 
 import java.io.Serializable;
 
-public class NumPuerta implements Serializable{
-	
-	private int _codigo;
+public class NumPuerta implements Serializable {
 
-	public NumPuerta() {
-	}
+    private int _codigo;
 
-	public NumPuerta(int codigo) {
-		super();
-		this._codigo = codigo;
-	}
+    public NumPuerta() {
+    }
 
-	public int get_codigo() {
-		return _codigo;
-	}
+    public NumPuerta(int codigo) {
+        super();
+        this._codigo = codigo;
+    }
 
-	public void set_codigo(int codigo) {
-		this._codigo = codigo;
-	}
+    public int get_codigo() {
+        return _codigo;
+    }
 
-	@Override
-	public String toString() {
-		String _infoClase = String.format("Numero de puerta codigo: %s",
-				this._codigo);
-		return _infoClase;
-	}
-	
+    public void set_codigo(int codigo) {
+        this._codigo = codigo;
+    }
+
+    @Override
+    public String toString() {
+        String _infoClase = String.format("Numero de puerta codigo: %s",
+                this._codigo);
+        return _infoClase;
+    }
+
 }

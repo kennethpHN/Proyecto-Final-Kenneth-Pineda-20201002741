@@ -6,7 +6,7 @@ package GUI;
 
 import Util.AdminArchivos;
 import Util.AdminSerializacion;
-import clases.Origen;
+import clases.Aerolinea;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -15,17 +15,17 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Pinedas
  */
-public class FrmOrigen extends javax.swing.JInternalFrame {
+public class FrmAerolinea extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form FrmCiudades
+     * Creates new form FrmAerolinea
      */
-    private int _indiceSeleccion;
     private boolean _agregando;
+    private int _indiceSeleccion;
 
-    public FrmOrigen() {
+    public FrmAerolinea() {
         initComponents();
-        this.setTitle("Gestión de Ciudad de Origen");
+        this.setTitle("Gestión de Aerolinea");
         actualizarElementosTabla();
     }
 
@@ -39,20 +39,20 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jtOrigen = new javax.swing.JTable();
+        jtAerolinea = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        btnReporte = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
-        btnReporte = new javax.swing.JButton();
 
-        jtOrigen.setModel(new javax.swing.table.DefaultTableModel(
+        jtAerolinea.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -63,12 +63,12 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jtOrigen.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtAerolinea.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jtOrigenMousePressed(evt);
+                jtAerolineaMousePressed(evt);
             }
         });
-        jScrollPane2.setViewportView(jtOrigen);
+        jScrollPane2.setViewportView(jtAerolinea);
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -81,6 +81,13 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnReporte.setText("Reporte");
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
             }
         });
 
@@ -112,9 +119,9 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel8.setText("Codigo:");
-
         jLabel3.setText("Descripcion:");
+
+        jLabel8.setText("Codigo:");
 
         txtCodigo.setEditable(false);
 
@@ -125,35 +132,25 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
             }
         });
 
-        btnReporte.setText("Reporte");
-        btnReporte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReporteActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnReporte)
+                        .addComponent(btnNuevo)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNuevo)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(98, 98, 98)
-                                        .addComponent(jLabel3))
-                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(133, 133, 133)
-                                        .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel8)
+                                .addGap(98, 98, 98)
+                                .addComponent(jLabel3))
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(btnEditar)
                                         .addGap(18, 18, 18)
@@ -161,18 +158,24 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(btnEliminar)
                                         .addGap(18, 18, 18)
-                                        .addComponent(btnGuardar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnSalir))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(btnGuardar)))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSalir)))
+                        .addGap(0, 11, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnReporte)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addContainerGap()
                 .addComponent(btnReporte)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -183,13 +186,15 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(85, 85, 85)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnEditar)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnSalir)
-                    .addComponent(btnGuardar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSalir)
+                        .addComponent(btnGuardar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnNuevo)
+                        .addComponent(btnEditar)
+                        .addComponent(btnBuscar)
+                        .addComponent(btnEliminar)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
@@ -198,34 +203,25 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jtAerolineaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtAerolineaMousePressed
+        // TODO add your handling code here:
+        _indiceSeleccion = jtAerolinea.getSelectedRow();
+        if (_indiceSeleccion != -1) {
+            Aerolinea _aerolinea = MDIPrincipal.gAero.getElementoPorPosicion(_indiceSeleccion);
+            mostrarElemento(_aerolinea);
+        }
+    }//GEN-LAST:event_jtAerolineaMousePressed
+
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         this._agregando = true;
 
         estadoBotones(false);
         estadoControles(true);
+        //this.txtCodigo.setEditable(true);
         this.txtCodigo.setText("");
         this.txtDescripcion.setText("");
     }//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        if (_indiceSeleccion >= 0) {
-            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
-            if (resultado == JOptionPane.YES_OPTION) {
-                MDIPrincipal.gOrigen.Eliminar(_indiceSeleccion);
-                actualizarElementosTabla();
-                //Paso 6: Serializar informacion
-                AdminSerializacion.serializacion(MDIPrincipal.gDestino, "gDestino.obj");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
-        }
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDescripcionActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
@@ -233,6 +229,17 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
         estadoBotones(false);
         estadoControles(true);
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        // TODO add your handling code here:
+        AdminArchivos adminA = new AdminArchivos();
+        adminA.setNombreArchivo("Reporte Aerolinea.csv");
+        adminA.setContenido(MDIPrincipal.gAero.getInfoReporte());
+        adminA.escribir();
+        Toolkit.getDefaultToolkit().beep();
+        JOptionPane.showMessageDialog(this, "Reporte generado correctamente");
+
+    }//GEN-LAST:event_btnReporteActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
@@ -246,18 +253,19 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
         codigo = this.txtCodigo.getText();
         descripcion = this.txtDescripcion.getText();
         //Paso 2
-        Origen origen = new Origen();
+        Aerolinea aerolinea = new Aerolinea();
+
         try {
             //Paso 3
             //origen.set_codigo(Integer.parseInt(codigo));
-            origen.set_descripcion(descripcion);
+            aerolinea.set_descripcion(descripcion);
             if (this._agregando) { // agregara
                 /**
                  * 4. Agregar instancia a la gestion
                  */
 
                 //Paso 4
-                MDIPrincipal.gOrigen.Agregar(origen);
+                MDIPrincipal.gAero.Agregar(aerolinea);
 
             } else { // editara o modificara
                 /**
@@ -266,10 +274,10 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
                 //Paso 1.1
                 codigo = this.txtCodigo.getText();
                 //Paso 3.1
-                origen.set_codigo(Integer.parseInt(codigo));
+                aerolinea.set_codigo(Integer.parseInt(codigo));
 
                 //Paso 4
-                MDIPrincipal.gOrigen.Modificar(this._indiceSeleccion, origen);
+                MDIPrincipal.gAero.Modificar(this._indiceSeleccion, aerolinea);
             }
             //Paso 5
             actualizarElementosTabla();
@@ -277,47 +285,43 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
             estadoControles(false);
 
             //Paso 6: Serializar informacion
-            AdminSerializacion.serializacion(MDIPrincipal.gOrigen, "gOrigen.obj");
+            AdminSerializacion.serializacion(MDIPrincipal.gAero, "gAero.obj");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Ha ocurrido un error: " + e.getMessage());
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-
-    private void jtOrigenMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtOrigenMousePressed
-        // TODO add your handling code here:
-        _indiceSeleccion = jtOrigen.getSelectedRow();
-        if (_indiceSeleccion != -1) {
-            Origen _origen = MDIPrincipal.gOrigen.getElementoPorPosicion(_indiceSeleccion);
-            mostrarElemento(_origen);
-        }
-    }//GEN-LAST:event_jtOrigenMousePressed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        String _codigoOrigen = JOptionPane.showInputDialog("Ingrese el código");
-        Origen _OrigenEncontrado = MDIPrincipal.gOrigen.BuscarPorcodigoGetElem(Integer.parseInt(_codigoOrigen));
-        if (_OrigenEncontrado == null) {
+        String _codigoAerolinea = JOptionPane.showInputDialog("Ingrese el código");
+        Aerolinea _aerolineaEncontrado = MDIPrincipal.gAero.BuscarPorcodigoGetElem(Integer.parseInt(_codigoAerolinea));
+        if (_aerolineaEncontrado == null) {
             JOptionPane.showMessageDialog(this, "Elemento no encontrado");
         } else {
-            mostrarElemento(_OrigenEncontrado);
+            mostrarElemento(_aerolineaEncontrado);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        if (_indiceSeleccion >= 0) {
+            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
+            if (resultado == JOptionPane.YES_OPTION) {
+                MDIPrincipal.gAero.Eliminar(_indiceSeleccion);
+                actualizarElementosTabla();
+                //Paso 6: Serializar informacion
+                AdminSerializacion.serializacion(MDIPrincipal.gAero, "gAero.obj");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
+        }
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
-
-    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-        // TODO add your handling code here:
-        AdminArchivos adminA = new AdminArchivos();
-        adminA.setNombreArchivo("Reporte Ciudad de Origen.csv");
-        adminA.setContenido(MDIPrincipal.gOrigen.getInfoReporte());
-        adminA.escribir();
-        Toolkit.getDefaultToolkit().beep();
-        JOptionPane.showMessageDialog(this, "Reporte generado correctamente");
-    }//GEN-LAST:event_btnReporteActionPerformed
 
     public void estadoControles(boolean _estado) {
         this.txtDescripcion.setEditable(_estado);
@@ -333,16 +337,20 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
         this.btnReporte.setEnabled(_estado);
     }
 
-    public void mostrarElemento(Origen _origen) {
-        this.txtCodigo.setText(Integer.toString(_origen.get_codigo()));
-        this.txtDescripcion.setText(_origen.get_descripcion());
+    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescripcionActionPerformed
+
+    public void mostrarElemento(Aerolinea _aerolinea) {
+        this.txtCodigo.setText(Integer.toString(_aerolinea.get_codigo()));
+        this.txtDescripcion.setText(_aerolinea.get_descripcion());
     }
 
     public void actualizarElementosTabla() {
         // String codigo, dni, nombre, apellido
         String[] titulos = {"Código", "Descripción"};
-        DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gOrigen.GetArrayGestion(), titulos);
-        this.jtOrigen.setModel(dt);
+        DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gAero.GetArrayGestion(), titulos);
+        this.jtAerolinea.setModel(dt);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -356,7 +364,7 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jtOrigen;
+    private javax.swing.JTable jtAerolinea;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
     // End of variables declaration//GEN-END:variables

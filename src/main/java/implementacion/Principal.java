@@ -203,7 +203,7 @@ public class Principal {
 									System.out.println("seleccione la Categoria de Vuelo");
 									gCateg.ImprimirTodos();
 									codSelec=sc2.nextInt();
-									categSelec = gCateg.BuscarPorIdGetElem(codSelec);
+									categSelec = gCateg.BuscarPorCodigoGetElem(codSelec);
 									if(categSelec==null) {
 										System.out.println("La seleccion no es valida, intente nuevamente");
 									}
@@ -441,7 +441,7 @@ public class Principal {
 									System.out.println("seleccione la Categoria de Vuelo");
 									gCateg.ImprimirTodos();
 									codSelec=sc2.nextInt();
-									categSelec = gCateg.BuscarPorIdGetElem(codSelec);
+									categSelec = gCateg.BuscarPorCodigoGetElem(codSelec);
 									if(categSelec==null) {
 										System.out.println("La seleccion no es valida, intente nuevamente");
 									}
