@@ -1,8 +1,9 @@
 package gestiones;
 import clases.Factura;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GestionFactura {
+public class GestionFactura implements Serializable{
 
 	private LinkedList<Factura> lstFactura = new LinkedList<>();
 

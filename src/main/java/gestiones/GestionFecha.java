@@ -1,8 +1,9 @@
 package gestiones;
 import clases.Fecha;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GestionFecha {
+public class GestionFecha implements Serializable{
 
 	private LinkedList<Fecha> lstFecha = new LinkedList<>();
 

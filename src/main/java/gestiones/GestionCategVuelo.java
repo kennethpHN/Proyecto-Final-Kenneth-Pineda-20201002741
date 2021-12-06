@@ -1,8 +1,9 @@
 package gestiones;
 import clases.CategVuelo;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GestionCategVuelo {
+public class GestionCategVuelo implements Serializable{
 
 	private LinkedList<CategVuelo> lstCategVuelo = new LinkedList<>();
 

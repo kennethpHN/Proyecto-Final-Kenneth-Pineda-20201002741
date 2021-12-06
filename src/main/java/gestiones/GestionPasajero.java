@@ -1,8 +1,9 @@
 package gestiones;
 import clases.Pasajero;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GestionPasajero {
+public class GestionPasajero implements Serializable{
 
 	private LinkedList<Pasajero> lstPasajero = new LinkedList<>();
 

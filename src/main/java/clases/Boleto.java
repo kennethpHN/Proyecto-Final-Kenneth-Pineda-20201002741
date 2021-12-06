@@ -1,6 +1,8 @@
 package clases;
 
-public class Boleto {
+import java.io.Serializable;
+
+public class Boleto implements Serializable{
 
 	private int _id;
 	private Pasajero _pasajero;

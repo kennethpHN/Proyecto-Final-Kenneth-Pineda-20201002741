@@ -1,8 +1,9 @@
 package gestiones;
 import clases.Boleto;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GestionBoleto {
+public class GestionBoleto implements Serializable{
 
 	private LinkedList<Boleto> lstBoleto = new LinkedList<>();
 

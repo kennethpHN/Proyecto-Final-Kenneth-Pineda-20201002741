@@ -1,6 +1,8 @@
 package clases;
 
-public class HoraAbordaje {
+import java.io.Serializable;
+
+public class HoraAbordaje implements Serializable{
 	
 	private int _codigo;
 	private String _descripcion;

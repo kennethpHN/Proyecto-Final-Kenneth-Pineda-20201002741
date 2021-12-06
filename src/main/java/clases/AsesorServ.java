@@ -1,6 +1,8 @@
 package clases;
 
-public class AsesorServ extends Persona{
+import java.io.Serializable;
+
+public class AsesorServ extends Persona implements Serializable{
 
 	public AsesorServ() {
 		super();

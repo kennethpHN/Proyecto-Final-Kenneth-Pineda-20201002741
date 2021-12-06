@@ -1,8 +1,9 @@
 package gestiones;
 import clases.HoraAbordaje;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GestionHoraAbordaje {
+public class GestionHoraAbordaje implements Serializable{
 
 	private LinkedList<HoraAbordaje> lstHoraAbordaje = new LinkedList<>();
 

@@ -1,8 +1,9 @@
 package gestiones;
 import clases.Asiento;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GestionAsiento {
+public class GestionAsiento implements Serializable{
 
 	private LinkedList<Asiento> lstAsiento = new LinkedList<>();
 

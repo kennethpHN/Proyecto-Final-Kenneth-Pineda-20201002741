@@ -1,8 +1,9 @@
 package gestiones;
 import clases.AsesorServ;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GestionAsesorServ {
+public class GestionAsesorServ implements Serializable{
 
 	private LinkedList<AsesorServ> lstAsesorServ = new LinkedList<>();
 

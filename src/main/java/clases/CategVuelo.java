@@ -1,6 +1,8 @@
 package clases;
 
-public class CategVuelo {
+import java.io.Serializable;
+
+public class CategVuelo implements Serializable{
 
 	private int _id;
 	private int _precio;

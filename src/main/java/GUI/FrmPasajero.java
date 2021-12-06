@@ -4,8 +4,8 @@
  */
 package GUI;
 
+import Util.AdminSerializacion;
 import clases.Pasajero;
-import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,20 +13,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Pinedas
  */
-
-
-
 public class FrmPasajero extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FrmPersona
      */
-    
     private boolean _agregando;
     private int _indiceSeleccion;
+
     public FrmPasajero() {
         initComponents();
         this.setTitle("Gestión de Pasajero");
+        actualizarElementosTabla();
+
     }
 
     /**
@@ -228,26 +227,28 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         this._agregando = true;
-        
+
         estadoBotones(false);
         estadoControles(true);
         this.txtCodigo.setText("");
         this.txtDNI.setText("");
         this.txtNombre.setText("");
         this.txtApellido.setText("");
-        
+
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        if (_indiceSeleccion>=0) {
-            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?","Warning", JOptionPane.YES_NO_OPTION);
-            if(resultado == JOptionPane.YES_OPTION){
+        if (_indiceSeleccion >= 0) {
+            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
+            if (resultado == JOptionPane.YES_OPTION) {
                 MDIPrincipal.gPasajero.Eliminar(_indiceSeleccion);
                 actualizarElementosTabla();
+                //Paso 6: Serializar informacion
+                AdminSerializacion.serializacion(MDIPrincipal.gPasajero, "gPasajero.obj");
             }
-        }else{
-            JOptionPane.showMessageDialog(this,"Favor seleccione el elemento de la tabla que desea eliminar");
+        } else {
+            JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -266,9 +267,9 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String _codigoPasajero = JOptionPane.showInputDialog("Ingrese el código");
         Pasajero _PasajeroEncontrado = MDIPrincipal.gPasajero.BuscarPorcodigoGetElem(Integer.parseInt(_codigoPasajero));
-        if(_PasajeroEncontrado == null){
-            JOptionPane.showMessageDialog(this,"Elemento no encontrado");
-        }else{
+        if (_PasajeroEncontrado == null) {
+            JOptionPane.showMessageDialog(this, "Elemento no encontrado");
+        } else {
             mostrarElemento(_PasajeroEncontrado);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -276,15 +277,12 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         /**
-        * 1. Solicitar valores
-        * 2. Crear instancia
-        * 3. Setear valores a instancia
-        * 4. Agregar o modificar instancia en la gestion
-        * 5. Mostrar valores
-        */
-        
+         * 1. Solicitar valores 2. Crear instancia 3. Setear valores a instancia
+         * 4. Agregar o modificar instancia en la gestion 5. Mostrar valores
+         */
+
         //Paso 1
-        String codigo,dni,nombre,apellido;
+        String codigo, dni, nombre, apellido;
         //codigo = this.txtCodigo.getText();
         dni = this.txtDNI.getText();
         nombre = this.txtNombre.getText();
@@ -293,42 +291,49 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
         //Paso 2
         Pasajero pasajero = new Pasajero();
 
-        //Paso 3
-        
-        //pasajero.set_codigo(Integer.parseInt(codigo));
-        pasajero.set_dni(dni);
-        pasajero.set_nombre(nombre);
-        pasajero.set_apellido(apellido);
-        if(this._agregando){ // agregara
-            /**
-             * 4. Agregar instancia a la gestion
-             */
-            //Paso 4
-            MDIPrincipal.gPasajero.Agregar(pasajero);      
-        }else{ // editara o modificara
-            /**
-             * 4. Editar instancia en la gestion
-             */
-            //Paso 1.1
-            codigo = this.txtCodigo.getText();
-            //Paso 3.1
-            pasajero.set_codigo(Integer.parseInt(codigo));
-            
-            //Paso 4
-            MDIPrincipal.gPasajero.Modificar(this._indiceSeleccion,pasajero);
+        try {
+            //Paso 3
+
+            //pasajero.set_codigo(Integer.parseInt(codigo));
+            pasajero.set_dni(dni);
+            pasajero.set_nombre(nombre);
+            pasajero.set_apellido(apellido);
+            if (this._agregando) { // agregara
+                /**
+                 * 4. Agregar instancia a la gestion
+                 */
+                //Paso 4
+                MDIPrincipal.gPasajero.Agregar(pasajero);
+            } else { // editara o modificara
+                /**
+                 * 4. Editar instancia en la gestion
+                 */
+                //Paso 1.1
+                codigo = this.txtCodigo.getText();
+                //Paso 3.1
+                pasajero.set_codigo(Integer.parseInt(codigo));
+
+                //Paso 4
+                MDIPrincipal.gPasajero.Modificar(this._indiceSeleccion, pasajero);
+            }
+            //Paso 5
+            actualizarElementosTabla();
+            estadoBotones(true);
+            estadoControles(false);
+
+            //Paso 6: Serializar informacion
+            AdminSerializacion.serializacion(MDIPrincipal.gPasajero, "gPasajero.obj");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error: " + e.getMessage());
         }
-        //Paso 5
-        actualizarElementosTabla();
-        estadoBotones(true);
-        estadoControles(false);
-        
-        
+
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void jtPasajeroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtPasajeroMousePressed
         // TODO add your handling code here:
         _indiceSeleccion = jtPasajero.getSelectedRow();
-        if(_indiceSeleccion!=-1){
+        if (_indiceSeleccion != -1) {
             Pasajero _pasajero = MDIPrincipal.gPasajero.getElementoPorPosicion(_indiceSeleccion);
             mostrarElemento(_pasajero);
         }
@@ -336,34 +341,35 @@ public class FrmPasajero extends javax.swing.JInternalFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
+        setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txtCodigoActionPerformed
 
-    public void mostrarElemento(Pasajero _pasajero){
+    public void mostrarElemento(Pasajero _pasajero) {
         this.txtCodigo.setText(Integer.toString(_pasajero.get_codigo()));
         this.txtDNI.setText(_pasajero.get_dni());
         this.txtNombre.setText(_pasajero.get_nombre());
         this.txtApellido.setText(_pasajero.get_apellido());
     }
-    
-    public void actualizarElementosTabla(){
+
+    public void actualizarElementosTabla() {
         // String codigo, dni, nombre, apellido
-        String[] titulos = {"Código","DNI","Nombres","Apellidos"};
+        String[] titulos = {"Código", "DNI", "Nombres", "Apellidos"};
         DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gPasajero.GetArrayGestion(), titulos);
         this.jtPasajero.setModel(dt);
     }
-    
-    public void estadoControles(boolean _estado){
+
+    public void estadoControles(boolean _estado) {
         this.txtDNI.setEditable(_estado);
         this.txtNombre.setEditable(_estado);
         this.txtApellido.setEditable(_estado);
     }
-    
-    public void estadoBotones(boolean _estado){
+
+    public void estadoBotones(boolean _estado) {
         this.btnBuscar.setEnabled(_estado);
         this.btnEditar.setEnabled(_estado);
         this.btnEliminar.setEnabled(_estado);

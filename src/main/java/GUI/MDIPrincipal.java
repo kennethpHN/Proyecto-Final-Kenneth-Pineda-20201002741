@@ -33,7 +33,23 @@ public class MDIPrincipal extends javax.swing.JFrame {
         try{
             gDestino= (GestionDestino)AdminSerializacion.de_serealizacion("gDestino.obj");
             if(gDestino==null){
-                //gDestino=new GestionDestino();
+                gDestino=new GestionDestino();
+                
+            }
+        }catch(Exception e){}
+        
+        try{
+            gOrigen= (GestionOrigen)AdminSerializacion.de_serealizacion("gOrigen.obj");
+            if(gOrigen==null){
+                gOrigen=new GestionOrigen();
+                
+            }
+        }catch(Exception e){}
+        
+        try{
+            gPasajero= (GestionPasajero)AdminSerializacion.de_serealizacion("gPasajero.obj");
+            if(gPasajero==null){
+                gPasajero=new GestionPasajero();
                 
             }
         }catch(Exception e){}

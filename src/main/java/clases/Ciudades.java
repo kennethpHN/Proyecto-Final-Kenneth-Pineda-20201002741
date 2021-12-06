@@ -1,6 +1,6 @@
 package clases;
-
-public abstract class Ciudades {
+import java.io.Serializable;
+public abstract class Ciudades implements Serializable{
 
 	protected int _codigo;
 	protected String _descripcion;
@@ -35,7 +35,11 @@ public abstract class Ciudades {
 	}
 
 	public void set_descripcion(String _descripcion) {
-		this._descripcion = _descripcion;
+		if(_descripcion==null || _descripcion.equals("")){
+                    throw new IllegalArgumentException("Descripción de la ciudad es un dato obligatorio"); 
+                }else{
+                    this._descripcion = _descripcion;
+                }
 	}
 
 	@Override

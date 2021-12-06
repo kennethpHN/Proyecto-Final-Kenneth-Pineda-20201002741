@@ -1,7 +1,8 @@
 package gestiones;
 import java.util.LinkedList;
 import clases.*;
-public class GestionAerolinea {
+import java.io.Serializable;
+public class GestionAerolinea implements Serializable{
 	
 	private LinkedList<Aerolinea> lstAerolinea = new LinkedList<>();
 

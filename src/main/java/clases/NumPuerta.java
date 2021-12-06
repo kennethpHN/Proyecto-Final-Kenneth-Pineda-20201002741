@@ -1,6 +1,8 @@
 package clases;
 
-public class NumPuerta {
+import java.io.Serializable;
+
+public class NumPuerta implements Serializable{
 	
 	private int _codigo;
 

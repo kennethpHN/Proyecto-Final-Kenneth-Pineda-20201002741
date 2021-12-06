@@ -1,6 +1,7 @@
 package clases;
+import java.io.Serializable;
 import java.util.Date;
-public class Fecha {
+public class Fecha implements Serializable{
 
 	private int _codigo;
 	private Date _descripcion;

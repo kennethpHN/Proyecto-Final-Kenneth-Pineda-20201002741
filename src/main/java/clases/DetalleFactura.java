@@ -1,6 +1,8 @@
 package clases;
 
-public class DetalleFactura {
+import java.io.Serializable;
+
+public class DetalleFactura implements Serializable{
 
 	private double _subtotal;
 	private Boleto _boleto;

@@ -4,8 +4,8 @@
  */
 package GUI;
 
+import Util.AdminSerializacion;
 import clases.Origen;
-import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,9 +20,11 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
      */
     private int _indiceSeleccion;
     private boolean _agregando;
+
     public FrmOrigen() {
         initComponents();
         this.setTitle("Gestión de Ciudad de Origen");
+        actualizarElementosTabla();
     }
 
     /**
@@ -36,7 +38,6 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jtOrigen = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         btnNuevo = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
@@ -65,8 +66,6 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane2.setViewportView(jtOrigen);
-
-        jLabel1.setText("Ciudades de Origen");
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -131,46 +130,36 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(98, 98, 98)
-                                .addComponent(jLabel3)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(96, 96, 96)
-                                        .addComponent(txtDescripcion))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(54, 54, 54)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGap(169, 169, 169))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnNuevo)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEditar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGuardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSalir)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(98, 98, 98)
+                                .addComponent(jLabel3))
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnEditar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEliminar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGuardar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSalir))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(133, 133, 133)
+                                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(23, 23, 23)
+                .addGap(18, 52, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel3))
@@ -197,7 +186,7 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         this._agregando = true;
-        
+
         estadoBotones(false);
         estadoControles(true);
         this.txtCodigo.setText("");
@@ -206,14 +195,16 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        if (_indiceSeleccion>=0) {
-            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?","Warning", JOptionPane.YES_NO_OPTION);
-            if(resultado == JOptionPane.YES_OPTION){
+        if (_indiceSeleccion >= 0) {
+            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
+            if (resultado == JOptionPane.YES_OPTION) {
                 MDIPrincipal.gOrigen.Eliminar(_indiceSeleccion);
                 actualizarElementosTabla();
+                //Paso 6: Serializar informacion
+                AdminSerializacion.serializacion(MDIPrincipal.gDestino, "gDestino.obj");
             }
-        }else{
-            JOptionPane.showMessageDialog(this,"Favor seleccione el elemento de la tabla que desea eliminar");
+        } else {
+            JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -231,55 +222,57 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         /**
-         * 1. Solicitar valores
-         * 2. Crear instancia
-         * 3. Setear valores a instancia
-         * 4. Agregar instancia a la gestion
-         * 5. Mostrar valores
+         * 1. Solicitar valores 2. Crear instancia 3. Setear valores a instancia
+         * 4. Agregar instancia a la gestion 5. Mostrar valores
          */
 
         //Paso 1
-        String codigo,descripcion;
+        String codigo, descripcion;
         codigo = this.txtCodigo.getText();
         descripcion = this.txtDescripcion.getText();
         //Paso 2
         Origen origen = new Origen();
-        //Paso 3
-        //origen.set_codigo(Integer.parseInt(codigo));
-        origen.set_descripcion(descripcion);    
-        if(this._agregando){ // agregara
-            /**
-             * 4. Agregar instancia a la gestion
-             */
+        try {
+            //Paso 3
+            //origen.set_codigo(Integer.parseInt(codigo));
+            origen.set_descripcion(descripcion);
+            if (this._agregando) { // agregara
+                /**
+                 * 4. Agregar instancia a la gestion
+                 */
 
-            //Paso 4
-            MDIPrincipal.gOrigen.Agregar(origen);
-            
+                //Paso 4
+                MDIPrincipal.gOrigen.Agregar(origen);
 
-            
-        }else{ // editara o modificara
-            /**
-             * 4. Editar instancia en la gestion
-             */
-            //Paso 1.1
-            codigo = this.txtCodigo.getText();
-            //Paso 3.1
-            origen.set_codigo(Integer.parseInt(codigo));
-            
-            //Paso 4
-            MDIPrincipal.gOrigen.Modificar(this._indiceSeleccion,origen);        
+            } else { // editara o modificara
+                /**
+                 * 4. Editar instancia en la gestion
+                 */
+                //Paso 1.1
+                codigo = this.txtCodigo.getText();
+                //Paso 3.1
+                origen.set_codigo(Integer.parseInt(codigo));
+
+                //Paso 4
+                MDIPrincipal.gOrigen.Modificar(this._indiceSeleccion, origen);
+            }
+            //Paso 5
+            actualizarElementosTabla();
+            estadoBotones(true);
+            estadoControles(false);
+
+            //Paso 6: Serializar informacion
+            AdminSerializacion.serializacion(MDIPrincipal.gOrigen, "gOrigen.obj");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error: "+e.getMessage());
         }
-        //Paso 5
-        actualizarElementosTabla();
-        estadoBotones(true);
-        estadoControles(false);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 
     private void jtOrigenMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtOrigenMousePressed
         // TODO add your handling code here:
         _indiceSeleccion = jtOrigen.getSelectedRow();
-        if(_indiceSeleccion!=-1){
+        if (_indiceSeleccion != -1) {
             Origen _origen = MDIPrincipal.gOrigen.getElementoPorPosicion(_indiceSeleccion);
             mostrarElemento(_origen);
         }
@@ -289,38 +282,39 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String _codigoOrigen = JOptionPane.showInputDialog("Ingrese el código");
         Origen _OrigenEncontrado = MDIPrincipal.gOrigen.BuscarPorcodigoGetElem(Integer.parseInt(_codigoOrigen));
-        if(_OrigenEncontrado == null){
-            JOptionPane.showMessageDialog(this,"Elemento no encontrado");
-        }else{
+        if (_OrigenEncontrado == null) {
+            JOptionPane.showMessageDialog(this, "Elemento no encontrado");
+        } else {
             mostrarElemento(_OrigenEncontrado);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
-    public void estadoControles(boolean _estado){
+    public void estadoControles(boolean _estado) {
         this.txtDescripcion.setEditable(_estado);
     }
-    
-    public void estadoBotones(boolean _estado){
+
+    public void estadoBotones(boolean _estado) {
         this.btnBuscar.setEnabled(_estado);
         this.btnEditar.setEnabled(_estado);
         this.btnEliminar.setEnabled(_estado);
         this.btnGuardar.setEnabled(!_estado);
         this.btnNuevo.setEnabled(_estado);
         this.btnSalir.setEnabled(_estado);
-    }    
+    }
 
-    public void mostrarElemento(Origen _origen){
+    public void mostrarElemento(Origen _origen) {
         this.txtCodigo.setText(Integer.toString(_origen.get_codigo()));
         this.txtDescripcion.setText(_origen.get_descripcion());
     }
-    public void actualizarElementosTabla(){
+
+    public void actualizarElementosTabla() {
         // String codigo, dni, nombre, apellido
-        String[] titulos = {"Código","Descripción"};
+        String[] titulos = {"Código", "Descripción"};
         DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gOrigen.GetArrayGestion(), titulos);
         this.jtOrigen.setModel(dt);
     }
@@ -332,7 +326,6 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane2;

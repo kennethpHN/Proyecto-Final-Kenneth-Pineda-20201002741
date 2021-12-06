@@ -1,6 +1,8 @@
 package clases;
 
-public class Aerolinea {
+import java.io.Serializable;
+
+public class Aerolinea implements Serializable{
 	
 	private int _codigo;
 	private String _descripcion;

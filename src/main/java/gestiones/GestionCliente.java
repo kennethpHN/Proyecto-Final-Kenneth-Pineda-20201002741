@@ -1,8 +1,9 @@
 package gestiones;
 import clases.Cliente;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GestionCliente {
+public class GestionCliente implements Serializable{
 
 	private LinkedList<Cliente> lstCliente = new LinkedList<>();
 

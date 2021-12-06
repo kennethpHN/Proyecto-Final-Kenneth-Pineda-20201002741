@@ -1,6 +1,8 @@
 package clases;
 
-public class Asiento {
+import java.io.Serializable;
+
+public class Asiento implements Serializable{
 	
 	private int _codigo;
 

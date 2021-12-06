@@ -115,5 +115,13 @@ public class GestionDestino implements Serializable {
 		return lstDestino.get(posicion);
 		
 	}
+        
+        public String getInfoReporte(){
+            String _resultado="Código; Descripción; \n";
+            for(int i=0; i<lstDestino.size();i++){
+                _resultado += lstDestino.get(i).get_codigo()+";"+lstDestino.get(i).get_descripcion()+";\n";
+            }
+            return _resultado;
+        }
 
 }

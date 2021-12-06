@@ -4,13 +4,13 @@
  */
 package GUI;
 
+import Util.AdminArchivos;
 import Util.AdminSerializacion;
 import clases.Destino;
-import java.awt.Color;
-import javax.swing.JFrame;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Pinedas
@@ -22,9 +22,11 @@ public class FrmDestino extends javax.swing.JInternalFrame {
      */
     private boolean _agregando;
     private int _indiceSeleccion;
+
     public FrmDestino() {
         initComponents();
         this.setTitle("Gestión de Ciudad de Destino");
+        actualizarElementosTabla();
     }
 
     /**
@@ -48,6 +50,7 @@ public class FrmDestino extends javax.swing.JInternalFrame {
         txtDescripcion = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtDestino = new javax.swing.JTable();
+        btnReporte = new javax.swing.JButton();
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +125,13 @@ public class FrmDestino extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jtDestino);
 
+        btnReporte.setText("Reporte");
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,21 +139,10 @@ public class FrmDestino extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnNuevo)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEditar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGuardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSalir))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8)
@@ -151,14 +150,30 @@ public class FrmDestino extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel3))
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(133, 133, 133)
-                                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnEditar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnBuscar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnEliminar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnGuardar)))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnSalir)))))
                 .addGap(0, 10, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnReporte)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 56, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(btnReporte)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel3))
@@ -187,7 +202,7 @@ public class FrmDestino extends javax.swing.JInternalFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         this._agregando = true;
-        
+
         estadoBotones(false);
         estadoControles(true);
         //this.txtCodigo.setEditable(true);
@@ -197,20 +212,19 @@ public class FrmDestino extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        if (_indiceSeleccion>=0) {
-            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?","Warning", JOptionPane.YES_NO_OPTION);
-            if(resultado == JOptionPane.YES_OPTION){
+        if (_indiceSeleccion >= 0) {
+            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
+            if (resultado == JOptionPane.YES_OPTION) {
                 MDIPrincipal.gDestino.Eliminar(_indiceSeleccion);
                 actualizarElementosTabla();
                 //Paso 6: Serializar informacion
                 AdminSerializacion.serializacion(MDIPrincipal.gDestino, "gDestino.obj");
             }
-        }else{
-            JOptionPane.showMessageDialog(this,"Favor seleccione el elemento de la tabla que desea eliminar");
+        } else {
+            JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
@@ -220,52 +234,52 @@ public class FrmDestino extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         /**
-         * 1. Solicitar valores
-         * 2. Crear instancia
-         * 3. Setear valores a instancia
-         * 4. Agregar instancia a la gestion
-         * 5. Mostrar valores
+         * 1. Solicitar valores 2. Crear instancia 3. Setear valores a instancia
+         * 4. Agregar instancia a la gestion 5. Mostrar valores
          */
 
         //Paso 1
-        String codigo,descripcion;
+        String codigo, descripcion;
         codigo = this.txtCodigo.getText();
         descripcion = this.txtDescripcion.getText();
         //Paso 2
         Destino destino = new Destino();
-        //Paso 3
-        //origen.set_codigo(Integer.parseInt(codigo));
-        destino.set_descripcion(descripcion);    
-        if(this._agregando){ // agregara
-            /**
-             * 4. Agregar instancia a la gestion
-             */
 
-            //Paso 4
-            MDIPrincipal.gDestino.Agregar(destino);
-            
+        try {
+            //Paso 3
+            //origen.set_codigo(Integer.parseInt(codigo));
+            destino.set_descripcion(descripcion);
+            if (this._agregando) { // agregara
+                /**
+                 * 4. Agregar instancia a la gestion
+                 */
 
-            
-        }else{ // editara o modificara
-            /**
-             * 4. Editar instancia en la gestion
-             */
-            //Paso 1.1
-            codigo = this.txtCodigo.getText();
-            //Paso 3.1
-            destino.set_codigo(Integer.parseInt(codigo));
-            
-            //Paso 4
-            MDIPrincipal.gDestino.Modificar(this._indiceSeleccion,destino);        
+                //Paso 4
+                MDIPrincipal.gDestino.Agregar(destino);
+
+            } else { // editara o modificara
+                /**
+                 * 4. Editar instancia en la gestion
+                 */
+                //Paso 1.1
+                codigo = this.txtCodigo.getText();
+                //Paso 3.1
+                destino.set_codigo(Integer.parseInt(codigo));
+
+                //Paso 4
+                MDIPrincipal.gDestino.Modificar(this._indiceSeleccion, destino);
+            }
+            //Paso 5
+            actualizarElementosTabla();
+            estadoBotones(true);
+            estadoControles(false);
+
+            //Paso 6: Serializar informacion
+            AdminSerializacion.serializacion(MDIPrincipal.gDestino, "gDestino.obj");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error: "+e.getMessage());
         }
-        //Paso 5
-        actualizarElementosTabla();
-        estadoBotones(true);
-        estadoControles(false);
-        
-        //Paso 6: Serializar informacion
-        AdminSerializacion.serializacion(MDIPrincipal.gDestino, "gDestino.obj");
-        
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -278,7 +292,7 @@ public class FrmDestino extends javax.swing.JInternalFrame {
     private void jtDestinoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtDestinoMousePressed
         // TODO add your handling code here:
         _indiceSeleccion = jtDestino.getSelectedRow();
-        if(_indiceSeleccion!=-1){
+        if (_indiceSeleccion != -1) {
             Destino _destino = MDIPrincipal.gDestino.getElementoPorPosicion(_indiceSeleccion);
             mostrarElemento(_destino);
         }
@@ -286,43 +300,54 @@ public class FrmDestino extends javax.swing.JInternalFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-        System.exit(0);
+        setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         String _codigoDestino = JOptionPane.showInputDialog("Ingrese el código");
         Destino _destinoEncontrado = MDIPrincipal.gDestino.BuscarPorCodigoGetElem(Integer.parseInt(_codigoDestino));
-        if(_destinoEncontrado == null){
-            JOptionPane.showMessageDialog(this,"Elemento no encontrado");
-        }else{
+        if (_destinoEncontrado == null) {
+            JOptionPane.showMessageDialog(this, "Elemento no encontrado");
+        } else {
             mostrarElemento(_destinoEncontrado);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    public void estadoControles(boolean _estado){
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        // TODO add your handling code here:
+        AdminArchivos adminA=new AdminArchivos();
+        adminA.setNombreArchivo("Reporte Ciudad de Destino.csv");
+        adminA.setContenido(MDIPrincipal.gDestino.getInfoReporte());
+        adminA.escribir();
+        Toolkit.getDefaultToolkit().beep();
+        JOptionPane.showMessageDialog(this, "Reporte generado correctamente");
+        
+    }//GEN-LAST:event_btnReporteActionPerformed
+
+    public void estadoControles(boolean _estado) {
         this.txtDescripcion.setEditable(_estado);
     }
-    
-    public void estadoBotones(boolean _estado){
+
+    public void estadoBotones(boolean _estado) {
         this.btnBuscar.setEnabled(_estado);
         this.btnEditar.setEnabled(_estado);
         this.btnEliminar.setEnabled(_estado);
         this.btnGuardar.setEnabled(!_estado);
         this.btnNuevo.setEnabled(_estado);
         this.btnSalir.setEnabled(_estado);
-    }    
-    
-    public void mostrarElemento(Destino _destino){
-    this.txtCodigo.setText(Integer.toString(_destino.get_codigo()));
-    this.txtDescripcion.setText(_destino.get_descripcion());
     }
-    
-    public void actualizarElementosTabla(){
-    // String codigo, dni, nombre, apellido
-    String[] titulos = {"Código","Descripción"};
-    DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gDestino.GetArrayGestion(), titulos);
-    this.jtDestino.setModel(dt);
+
+    public void mostrarElemento(Destino _destino) {
+        this.txtCodigo.setText(Integer.toString(_destino.get_codigo()));
+        this.txtDescripcion.setText(_destino.get_descripcion());
+    }
+
+    public void actualizarElementosTabla() {
+        // String codigo, dni, nombre, apellido
+        String[] titulos = {"Código", "Descripción"};
+        DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gDestino.GetArrayGestion(), titulos);
+        this.jtDestino.setModel(dt);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -331,6 +356,7 @@ public class FrmDestino extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnReporte;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;

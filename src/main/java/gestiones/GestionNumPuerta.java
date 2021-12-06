@@ -1,8 +1,9 @@
 package gestiones;
 import clases.NumPuerta;
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class GestionNumPuerta {
+public class GestionNumPuerta implements Serializable{
 
 	private LinkedList<NumPuerta> lstNumPuerta = new LinkedList<>();
 

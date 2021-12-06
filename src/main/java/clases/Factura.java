@@ -2,7 +2,8 @@ package clases;
 import java.util.LinkedList;
 
 import Util.Calculo;
-public class Factura implements Calculo{
+import java.io.Serializable;
+public class Factura implements Calculo, Serializable{
 
 	private String _fecha;
 	private int _id;
@@ -32,7 +33,7 @@ public class Factura implements Calculo{
 	
 
 	/**
-	 * Método para agregar detalle a la factura
+	 * Mï¿½todo para agregar detalle a la factura
 	 * @param detalle
 	 * @return true si todo se realizo correctamente
 	 */
@@ -58,7 +59,7 @@ public class Factura implements Calculo{
 	}
 	
 	/**
-	 * Método para modificar un detalle a la factura
+	 * Mï¿½todo para modificar un detalle a la factura
 	 * @param detalle, posicion
 	 * @return true si todo se realizo correctamente
 	 */
