@@ -20,8 +20,17 @@ public class AdminFechas {
         return format2.format(fechaActual);
     }
     
+        /**
+     * Obtiene fecha actual
+     * @return 
+     */
+    public static String FechaToString(Date fecha) {
+        SimpleDateFormat format2 = new SimpleDateFormat("dd/MM/yyyy");
+        return format2.format(fecha);
+    }
+    
     /**
-     * Obtiene año actual
+     * Obtiene anio actual
      * @return 
      */
     public static String getAnioActualString() {
@@ -49,8 +58,8 @@ public class AdminFechas {
         return format.format(fechaActual);
     }
 /**
- * Agrega cantidad de días a una fecha determinada
- * Si cantidadDias es negativo realizará una resta
+ * Agrega cantidad de dï¿½as a una fecha determinada
+ * Si cantidadDias es negativo realizarï¿½ una resta
  * @param fecha
  * @param cantidadDias
  * @return
@@ -83,7 +92,7 @@ public class AdminFechas {
      * Realiza la resta entre dos fechas
      * @param fechaInicial
      * @param fechaFinal
-     * @return Cantidad de años
+     * @return Cantidad de aï¿½os
      */
     public static  int restarFechasAnios(Date fechaInicial, Date fechaFinal) {
         int anios =restarFechasDias(fechaInicial,fechaFinal)/365;
@@ -108,7 +117,7 @@ public class AdminFechas {
     }
     
     /**
-     * Convierte de String a fecha (años)
+     * Convierte de String a fecha (aï¿½os)
      * @param fechaString
      * @return Date
      */

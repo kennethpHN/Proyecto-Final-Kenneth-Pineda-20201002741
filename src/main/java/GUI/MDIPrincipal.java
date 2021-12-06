@@ -27,6 +27,8 @@ public class MDIPrincipal extends javax.swing.JFrame {
     public static GestionHoraAbordaje gHora = new GestionHoraAbordaje();
     public static GestionAsiento gAsiento = new GestionAsiento();
     public static GestionCategVuelo gCateg = new GestionCategVuelo();
+    public static GestionNumPuerta gNPuerta = new GestionNumPuerta();
+    public static GestionFecha gFecha = new GestionFecha();
 
     public MDIPrincipal() {
         initComponents();
@@ -60,6 +62,78 @@ public class MDIPrincipal extends javax.swing.JFrame {
         } catch (Exception e) {
         }
 
+        try {
+            gAero = (GestionAerolinea) AdminSerializacion.de_serealizacion("gAero.obj");
+            if (gAero == null) {
+                gAero = new GestionAerolinea();
+
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            gAsiento = (GestionAsiento) AdminSerializacion.de_serealizacion("gAsiento.obj");
+            if (gAsiento == null) {
+                gAsiento = new GestionAsiento();
+
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            gCateg = (GestionCategVuelo) AdminSerializacion.de_serealizacion("gCateg.obj");
+            if (gAsiento == null) {
+                gAsiento = new GestionAsiento();
+
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            gCliente = (GestionCliente) AdminSerializacion.de_serealizacion("gCliente.obj");
+            if (gCliente == null) {
+                gCliente = new GestionCliente();
+
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            gAsesor = (GestionAsesorServ) AdminSerializacion.de_serealizacion("gAsesor.obj");
+            if (gAsesor == null) {
+                gAsesor = new GestionAsesorServ();
+
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            gFecha = (GestionFecha) AdminSerializacion.de_serealizacion("gFecha.obj");
+            if (gFecha == null) {
+                gFecha = new GestionFecha();
+
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            gHora = (GestionHoraAbordaje) AdminSerializacion.de_serealizacion("gHora.obj");
+            if (gHora == null) {
+                gHora = new GestionHoraAbordaje();
+
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            gNPuerta = (GestionNumPuerta) AdminSerializacion.de_serealizacion("gNPuerta.obj");
+            if (gNPuerta == null) {
+                gNPuerta = new GestionNumPuerta();
+
+            }
+        } catch (Exception e) {
+        }
+
     }
 
     /**
@@ -82,9 +156,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
         mnuCliente = new javax.swing.JMenuItem();
         mnuPasajero = new javax.swing.JMenuItem();
         mnuAsesor = new javax.swing.JMenuItem();
+        mnuFecha = new javax.swing.JMenuItem();
         mnuHoraAbordaje = new javax.swing.JMenuItem();
         mnuCategVuelo = new javax.swing.JMenuItem();
         mnuAsiento = new javax.swing.JMenuItem();
+        mnuNumPuerta = new javax.swing.JMenuItem();
         mnuAerolinea = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
@@ -163,6 +239,14 @@ public class MDIPrincipal extends javax.swing.JFrame {
 
         fileMenu.add(mnuPersona);
 
+        mnuFecha.setText("Fecha");
+        mnuFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuFechaActionPerformed(evt);
+            }
+        });
+        fileMenu.add(mnuFecha);
+
         mnuHoraAbordaje.setText("Hora de Abordaje");
         mnuHoraAbordaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,6 +270,14 @@ public class MDIPrincipal extends javax.swing.JFrame {
             }
         });
         fileMenu.add(mnuAsiento);
+
+        mnuNumPuerta.setText("Número de Puerta");
+        mnuNumPuerta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuNumPuertaActionPerformed(evt);
+            }
+        });
+        fileMenu.add(mnuNumPuerta);
 
         mnuAerolinea.setText("Aerolinea");
         mnuAerolinea.addActionListener(new java.awt.event.ActionListener() {
@@ -385,6 +477,30 @@ public class MDIPrincipal extends javax.swing.JFrame {
         this.desktopPane.add(frm1);
     }//GEN-LAST:event_mnuCategVueloActionPerformed
 
+    private void mnuNumPuertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNumPuertaActionPerformed
+        // TODO add your handling code here:
+        FrmNumPuerta frm1 = new FrmNumPuerta();
+
+        Dimension JInternal = frm1.getSize(); //dimension de frame
+        Dimension desktopSize = this.getSize();
+        frm1.setLocation((desktopSize.width - JInternal.width) / 2, (desktopSize.height - JInternal.height) / 2);
+
+        frm1.setVisible(true);
+        this.desktopPane.add(frm1);
+    }//GEN-LAST:event_mnuNumPuertaActionPerformed
+
+    private void mnuFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuFechaActionPerformed
+        // TODO add your handling code here:
+        FrmFecha frm1 = new FrmFecha();
+
+        Dimension JInternal = frm1.getSize(); //dimension de frame
+        Dimension desktopSize = this.getSize();
+        frm1.setLocation((desktopSize.width - JInternal.width) / 2, (desktopSize.height - JInternal.height) / 2);
+
+        frm1.setVisible(true);
+        this.desktopPane.add(frm1);
+    }//GEN-LAST:event_mnuFechaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -441,7 +557,9 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu mnuCiudades;
     private javax.swing.JMenuItem mnuCliente;
     private javax.swing.JMenuItem mnuDestino;
+    private javax.swing.JMenuItem mnuFecha;
     private javax.swing.JMenuItem mnuHoraAbordaje;
+    private javax.swing.JMenuItem mnuNumPuerta;
     private javax.swing.JMenuItem mnuOrigen;
     private javax.swing.JMenuItem mnuPasajero;
     private javax.swing.JMenu mnuPersona;
