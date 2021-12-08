@@ -334,7 +334,6 @@ public class FrmAerolinea extends javax.swing.JInternalFrame {
         this.btnEliminar.setEnabled(_estado);
         this.btnGuardar.setEnabled(!_estado);
         this.btnNuevo.setEnabled(_estado);
-        this.btnSalir.setEnabled(_estado);
         this.btnReporte.setEnabled(_estado);
     }
 
