@@ -7,12 +7,17 @@ package GUI;
 import Util.AdminSerializacion;
 import gestiones.*;
 import java.awt.Dimension;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  *
  * @author Dennis2
  */
 public class MDIPrincipal extends javax.swing.JFrame {
+
+    public static FrmFacturacionBoletos frmFacturacionBoletos = new FrmFacturacionBoletos();
+    public static FrmFacturacion frmFacturacion = new FrmFacturacion();
 
     /**
      * Ubicar todas las gestiones
@@ -29,10 +34,18 @@ public class MDIPrincipal extends javax.swing.JFrame {
     public static GestionCategVuelo gCateg = new GestionCategVuelo();
     public static GestionNumPuerta gNPuerta = new GestionNumPuerta();
     public static GestionFecha gFecha = new GestionFecha();
+    public static GestionFactura gFactura = new GestionFactura();
 
     public MDIPrincipal() {
         initComponents();
         super.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+
+        /*try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(this);
+        } catch (Exception e) {
+            System.out.println("Error setting the LAF..." + e);
+        }*/
 
         //De-Serialización
         try {
@@ -82,8 +95,8 @@ public class MDIPrincipal extends javax.swing.JFrame {
 
         try {
             gCateg = (GestionCategVuelo) AdminSerializacion.de_serealizacion("gCateg.obj");
-            if (gAsiento == null) {
-                gAsiento = new GestionAsiento();
+            if (gCateg == null) {
+                gCateg = new GestionCategVuelo();
 
             }
         } catch (Exception e) {
@@ -134,6 +147,24 @@ public class MDIPrincipal extends javax.swing.JFrame {
         } catch (Exception e) {
         }
 
+        try {
+            gBoleto = (GestionBoleto) AdminSerializacion.de_serealizacion("gBoleto.obj");
+            if (gBoleto == null) {
+                gBoleto = new GestionBoleto();
+
+            }
+        } catch (Exception e) {
+        }
+
+        try {
+            gFactura = (GestionFactura) AdminSerializacion.de_serealizacion("gFactura.obj");
+            if (gFactura == null) {
+                gFactura = new GestionFactura();
+
+            }
+        } catch (Exception e) {
+        }
+
     }
 
     /**
@@ -164,10 +195,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
         mnuAerolinea = new javax.swing.JMenuItem();
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
-        cutMenuItem = new javax.swing.JMenuItem();
-        copyMenuItem = new javax.swing.JMenuItem();
-        pasteMenuItem = new javax.swing.JMenuItem();
-        deleteMenuItem = new javax.swing.JMenuItem();
+        btnFacturacion = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
@@ -299,23 +327,15 @@ public class MDIPrincipal extends javax.swing.JFrame {
         menuBar.add(fileMenu);
 
         editMenu.setMnemonic('e');
-        editMenu.setText("Edit");
+        editMenu.setText("Facturas");
 
-        cutMenuItem.setMnemonic('t');
-        cutMenuItem.setText("Cut");
-        editMenu.add(cutMenuItem);
-
-        copyMenuItem.setMnemonic('y');
-        copyMenuItem.setText("Copy");
-        editMenu.add(copyMenuItem);
-
-        pasteMenuItem.setMnemonic('p');
-        pasteMenuItem.setText("Paste");
-        editMenu.add(pasteMenuItem);
-
-        deleteMenuItem.setMnemonic('d');
-        deleteMenuItem.setText("Delete");
-        editMenu.add(deleteMenuItem);
+        btnFacturacion.setText("Facturación");
+        btnFacturacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFacturacionActionPerformed(evt);
+            }
+        });
+        editMenu.add(btnFacturacion);
 
         menuBar.add(editMenu);
 
@@ -501,6 +521,15 @@ public class MDIPrincipal extends javax.swing.JFrame {
         this.desktopPane.add(frm1);
     }//GEN-LAST:event_mnuFechaActionPerformed
 
+    private void btnFacturacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturacionActionPerformed
+        // TODO add your handling code here:
+        Dimension jInternal = frmFacturacion.getSize(); //Dimensión de mi formulario interno
+        Dimension desktopSize = this.getSize(); //Dimensiones de mi desktop
+        frmFacturacion.setLocation((desktopSize.width - jInternal.width) / 2, (desktopSize.height - jInternal.height) / 2);
+        this.desktopPane.add(frmFacturacion);
+        frmFacturacion.setVisible(true);
+    }//GEN-LAST:event_btnFacturacionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -539,10 +568,8 @@ public class MDIPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JMenuItem btnFacturacion;
     private javax.swing.JMenuItem contentMenuItem;
-    private javax.swing.JMenuItem copyMenuItem;
-    private javax.swing.JMenuItem cutMenuItem;
-    private javax.swing.JMenuItem deleteMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
@@ -563,7 +590,6 @@ public class MDIPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuOrigen;
     private javax.swing.JMenuItem mnuPasajero;
     private javax.swing.JMenu mnuPersona;
-    private javax.swing.JMenuItem pasteMenuItem;
     // End of variables declaration//GEN-END:variables
 
 }
