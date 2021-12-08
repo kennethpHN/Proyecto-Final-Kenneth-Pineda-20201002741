@@ -3,6 +3,7 @@ package gestiones;
 import clases.CategVuelo;
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.swing.DefaultComboBoxModel;
 
 public class GestionCategVuelo implements Serializable {
 
@@ -125,10 +126,18 @@ public class GestionCategVuelo implements Serializable {
 
     }
 
+    public DefaultComboBoxModel getCboModel() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < lstCategVuelo.size(); i++) {
+            model.addElement(lstCategVuelo.get(i).get_descripcion());
+        }
+        return model;
+    }
+
     public String getInfoReporte() {
         String _resultado = "Código; precio ;Descripción; \n";
         for (int i = 0; i < lstCategVuelo.size(); i++) {
-            _resultado += lstCategVuelo.get(i).get_codigo() + ";"+lstCategVuelo.get(i).get_precio() + ";" + lstCategVuelo.get(i).get_descripcion() + ";\n";
+            _resultado += lstCategVuelo.get(i).get_codigo() + ";" + lstCategVuelo.get(i).get_precio() + ";" + lstCategVuelo.get(i).get_descripcion() + ";\n";
         }
         return _resultado;
     }

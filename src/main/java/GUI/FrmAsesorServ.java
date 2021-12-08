@@ -75,6 +75,7 @@ public class FrmAsesorServ extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(jtAsesorServ);
 
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);

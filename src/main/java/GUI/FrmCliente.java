@@ -82,6 +82,7 @@ public class FrmCliente extends javax.swing.JInternalFrame {
         txtApellido.setEditable(false);
 
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);

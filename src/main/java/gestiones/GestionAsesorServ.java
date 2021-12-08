@@ -3,6 +3,7 @@ package gestiones;
 import clases.AsesorServ;
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.swing.DefaultComboBoxModel;
 
 public class GestionAsesorServ implements Serializable {
 
@@ -125,6 +126,14 @@ public class GestionAsesorServ implements Serializable {
     public AsesorServ getElementoPorPosicion(int posicion) {
         return lstAsesorServ.get(posicion);
 
+    }
+
+    public DefaultComboBoxModel getCboModel() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < lstAsesorServ.size(); i++) {
+            model.addElement(lstAsesorServ.get(i).get_nombre() + " " + lstAsesorServ.get(i).get_apellido());
+        }
+        return model;
     }
 
     public String getInfoReporte() {

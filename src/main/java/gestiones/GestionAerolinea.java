@@ -3,6 +3,7 @@ package gestiones;
 import java.util.LinkedList;
 import clases.Aerolinea;
 import java.io.Serializable;
+import javax.swing.DefaultComboBoxModel;
 
 public class GestionAerolinea implements Serializable {
 
@@ -122,6 +123,14 @@ public class GestionAerolinea implements Serializable {
     public Aerolinea getElementoPorPosicion(int posicion) {
         return lstAerolinea.get(posicion);
 
+    }
+
+    public DefaultComboBoxModel getCboModel() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < lstAerolinea.size(); i++) {
+            model.addElement(lstAerolinea.get(i).get_descripcion());
+        }
+        return model;
     }
 
     public String getInfoReporte() {

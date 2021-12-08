@@ -3,6 +3,7 @@ package gestiones;
 import clases.HoraAbordaje;
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.swing.DefaultComboBoxModel;
 
 public class GestionHoraAbordaje implements Serializable {
 
@@ -122,6 +123,14 @@ public class GestionHoraAbordaje implements Serializable {
     public HoraAbordaje getElementoPorPosicion(int posicion) {
         return lstHoraAbordaje.get(posicion);
 
+    }
+
+    public DefaultComboBoxModel getCboModel() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < lstHoraAbordaje.size(); i++) {
+            model.addElement(lstHoraAbordaje.get(i).get_descripcion());
+        }
+        return model;
     }
 
     public String getInfoReporte() {

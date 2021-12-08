@@ -27,6 +27,7 @@ public class FrmCategVuelo extends javax.swing.JInternalFrame {
         initComponents();
         this.setTitle("Gestión de Ciudad de CategVuelo");
         actualizarElementosTabla();
+        
     }
 
     /**
@@ -76,6 +77,7 @@ public class FrmCategVuelo extends javax.swing.JInternalFrame {
         });
 
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -208,7 +210,6 @@ public class FrmCategVuelo extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -378,6 +379,7 @@ public class FrmCategVuelo extends javax.swing.JInternalFrame {
 
     public void mostrarElemento(CategVuelo _categVuelo) {
         this.txtCodigo.setText(Integer.toString(_categVuelo.get_codigo()));
+        this.txtPrecio.setText(Integer.toString(_categVuelo.get_precio()));
         this.txtDescripcion.setText(_categVuelo.get_descripcion());
     }
 

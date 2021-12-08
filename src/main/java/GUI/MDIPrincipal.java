@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
+
 /**
  *
  * @author Dennis2
@@ -40,12 +41,14 @@ public class MDIPrincipal extends javax.swing.JFrame {
         initComponents();
         super.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
 
-        /*try {
+
+
+        try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
             SwingUtilities.updateComponentTreeUI(this);
         } catch (Exception e) {
             System.out.println("Error setting the LAF..." + e);
-        }*/
+        }
 
         //De-Serialización
         try {
@@ -565,6 +568,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;

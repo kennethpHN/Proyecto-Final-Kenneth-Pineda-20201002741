@@ -85,6 +85,7 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
         });
 
         btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -216,7 +217,7 @@ public class FrmOrigen extends javax.swing.JInternalFrame {
                 MDIPrincipal.gOrigen.Eliminar(_indiceSeleccion);
                 actualizarElementosTabla();
                 //Paso 6: Serializar informacion
-                AdminSerializacion.serializacion(MDIPrincipal.gDestino, "gDestino.obj");
+                AdminSerializacion.serializacion(MDIPrincipal.gOrigen, "gOrigen.obj");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");

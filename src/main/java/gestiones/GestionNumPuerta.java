@@ -3,6 +3,7 @@ package gestiones;
 import clases.NumPuerta;
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.swing.DefaultComboBoxModel;
 
 public class GestionNumPuerta implements Serializable {
 
@@ -122,7 +123,15 @@ public class GestionNumPuerta implements Serializable {
         return lstNumPuerta.get(posicion);
 
     }
-
+    public DefaultComboBoxModel getCboModel() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < lstNumPuerta.size(); i++) {
+            model.addElement(lstNumPuerta.get(i).get_codigo());
+        }
+        return model;
+    }
+    
+    
     public String getInfoReporte() {
         String _resultado = "Código; \n";
         for (int i = 0; i < lstNumPuerta.size(); i++) {

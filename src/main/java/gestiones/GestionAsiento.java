@@ -3,6 +3,7 @@ package gestiones;
 import clases.Asiento;
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.swing.DefaultComboBoxModel;
 
 public class GestionAsiento implements Serializable {
 
@@ -123,10 +124,18 @@ public class GestionAsiento implements Serializable {
 
     }
 
+    public DefaultComboBoxModel getCboModel() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < lstAsiento.size(); i++) {
+            model.addElement(lstAsiento.get(i).get_codigo());
+        }
+        return model;
+    }
+
     public String getInfoReporte() {
         String _resultado = "Código; \n";
         for (int i = 0; i < lstAsiento.size(); i++) {
-            _resultado += lstAsiento.get(i).get_codigo() +";\n";
+            _resultado += lstAsiento.get(i).get_codigo() + ";\n";
         }
         return _resultado;
     }

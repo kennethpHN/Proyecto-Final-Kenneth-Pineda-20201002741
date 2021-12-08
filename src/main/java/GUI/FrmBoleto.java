@@ -4,6 +4,13 @@
  */
 package GUI;
 
+import Util.AdminArchivos;
+import Util.AdminSerializacion;
+import clases.*;
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Dennis2
@@ -13,9 +20,76 @@ public class FrmBoleto extends javax.swing.JInternalFrame {
     /**
      * Creates new form frmLibro
      */
+    private int _indiceSeleccion;
+    private boolean _agregando;
+
     public FrmBoleto() {
         initComponents();
         this.setTitle("Gestión de Boletos");
+        try {
+            actualizarElementosTabla();
+        } catch (Exception e) {
+        }
+
+        try {
+            this.cboCategVuelo.setModel(MDIPrincipal.gCateg.getCboModel());
+        } catch (Exception e) {
+        }
+        try {
+            this.cboAerolinea.setModel(MDIPrincipal.gAero.getCboModel());
+        } catch (Exception e) {
+        }
+        try {
+            this.cboOrigen.setModel(MDIPrincipal.gOrigen.getCboModel());
+        } catch (Exception e) {
+        }
+        try {
+            this.cboDestino.setModel(MDIPrincipal.gDestino.getCboModel());
+        } catch (Exception e) {
+        }
+        try {
+            this.cboAsiento.setModel(MDIPrincipal.gAsiento.getCboModel());
+        } catch (Exception e) {
+        }
+        try {
+            this.cboFecha.setModel(MDIPrincipal.gFecha.getCboModel());
+        } catch (Exception e) {
+        }
+        try {
+            this.cboHoraAbordaje.setModel(MDIPrincipal.gHora.getCboModel());
+        } catch (Exception e) {
+        }
+        try {
+            this.cboNumPuerta.setModel(MDIPrincipal.gNPuerta.getCboModel());
+        } catch (Exception e) {
+        }
+        try {
+            this.cboPasajero.setModel(MDIPrincipal.gPasajero.getCboModel());
+        } catch (Exception e) {
+        }
+
+    }
+
+    public void estadoBotones(boolean _estado) {
+        this.btnBuscar.setEnabled(_estado);
+        this.btnEditar.setEnabled(_estado);
+        this.btnEliminar.setEnabled(_estado);
+        this.btnGuardar.setEnabled(!_estado);
+        this.btnNuevo.setEnabled(_estado);
+        this.btnSalir.setEnabled(_estado);
+        this.btnReporte.setEnabled(_estado);
+    }
+
+    public void estadoCombos(boolean _estado) {
+        this.cboAerolinea.setEnabled(_estado);
+        this.cboAsiento.setEnabled(_estado);
+        this.cboCategVuelo.setEnabled(_estado);
+        this.cboDestino.setEnabled(_estado);
+        this.cboFecha.setEnabled(_estado);
+        this.cboHoraAbordaje.setEnabled(_estado);
+        this.cboNumPuerta.setEnabled(_estado);
+        this.cboOrigen.setEnabled(_estado);
+        this.cboPasajero.setEnabled(_estado);
     }
 
     /**
@@ -27,8 +101,6 @@ public class FrmBoleto extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         cboOrigen = new javax.swing.JComboBox<>();
@@ -56,31 +128,23 @@ public class FrmBoleto extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         btnReporte = new javax.swing.JButton();
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jLabel1 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
 
         jLabel2.setText("Ciudad de Origen:");
 
         jLabel7.setText("Ciudad de Destino:");
 
         cboOrigen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboOrigen.setEnabled(false);
 
         cboDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboDestino.setEnabled(false);
 
         jLabel8.setText("Pasajero:");
 
         cboPasajero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboPasajero.setEnabled(false);
         cboPasajero.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboPasajeroActionPerformed(evt);
@@ -90,26 +154,37 @@ public class FrmBoleto extends javax.swing.JInternalFrame {
         jLabel3.setText("Numero de Puerta:");
 
         cboNumPuerta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboNumPuerta.setEnabled(false);
 
         jLabel4.setText("Hora de Abordaje:");
 
         cboHoraAbordaje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboHoraAbordaje.setEnabled(false);
+        cboHoraAbordaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboHoraAbordajeActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Fecha:");
 
         cboFecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboFecha.setEnabled(false);
 
         jLabel6.setText("Categoria de Vuelo:");
 
         cboCategVuelo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboCategVuelo.setEnabled(false);
 
         jLabel9.setText("Asiento:");
 
         cboAsiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboAsiento.setEnabled(false);
 
         jLabel10.setText("Aerolinea:");
 
         cboAerolinea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboAerolinea.setEnabled(false);
 
         jtBoleto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,6 +197,11 @@ public class FrmBoleto extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtBoleto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtBoletoMousePressed(evt);
+            }
+        });
         jScrollPane2.setViewportView(jtBoleto);
 
         btnNuevo.setText("Nuevo");
@@ -167,109 +247,145 @@ public class FrmBoleto extends javax.swing.JInternalFrame {
         });
 
         btnReporte.setText("Reporte");
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Código:");
+
+        txtCodigo.setEditable(false);
+        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCodigoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(cboNumPuerta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cboCategVuelo, javax.swing.GroupLayout.Alignment.LEADING, 0, 160, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cboFecha, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(btnReporte))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(cboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cboPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel8)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jLabel10)
+                                                .addComponent(cboAerolinea, 0, 160, Short.MAX_VALUE))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(jLabel9)
+                                                .addComponent(cboAsiento, 0, 160, Short.MAX_VALUE))
+                                            .addComponent(jLabel3)
+                                            .addComponent(cboNumPuerta, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
-                                                .addGap(194, 194, 194)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel9)
-                                                    .addComponent(cboAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel5)
-                                                    .addComponent(cboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(btnNuevo)
                                                 .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel6)
-                                                    .addComponent(cboCategVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                        .addGap(36, 36, 36)
+                                                .addComponent(btnEditar)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnBuscar))
+                                            .addComponent(jLabel4)
+                                            .addComponent(cboHoraAbordaje, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel10)
-                                            .addComponent(cboAerolinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(cboDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(8, 8, 8)))
-                                .addGap(35, 35, 35)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cboHoraAbordaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNuevo)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEditar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnBuscar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEliminar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnGuardar)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(16, 16, 16)
+                                                .addComponent(jLabel1))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(btnEliminar))
+                                                .addGap(18, 18, 18)
+                                                .addComponent(btnGuardar)))))
                                 .addGap(18, 18, 18)
                                 .addComponent(btnSalir)))
-                        .addGap(0, 5, Short.MAX_VALUE)))
+                        .addGap(0, 30, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(btnReporte))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnReporte)
-                    .addComponent(jLabel3)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(7, 7, 7)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cboDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cboPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboNumPuerta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cboDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel7)))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboCategVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboAerolinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboHoraAbordaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboAerolinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboAsiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboCategVuelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cboNumPuerta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cboHoraAbordaje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel1)))
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnEditar)
@@ -277,9 +393,9 @@ public class FrmBoleto extends javax.swing.JInternalFrame {
                     .addComponent(btnEliminar)
                     .addComponent(btnSalir)
                     .addComponent(btnGuardar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addContainerGap())
         );
 
         pack();
@@ -291,30 +407,187 @@ public class FrmBoleto extends javax.swing.JInternalFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+        _agregando = true;
+        this.txtCodigo.setText("");
+
+        estadoBotones(false);
+        estadoCombos(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
+        if (_indiceSeleccion >= 0) {
+            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
+            if (resultado == JOptionPane.YES_OPTION) {
+                MDIPrincipal.gBoleto.Eliminar(_indiceSeleccion);
+                actualizarElementosTabla();
+                //Paso 6: Serializar informacion
+                AdminSerializacion.serializacion(MDIPrincipal.gBoleto, "gPasajero.obj");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        /**
+         * 1. Solicitar valores 2. Crear instancia 3. Setear valores a instancia
+         * 4. Agregar instancia a la gestion 5. Mostrar valores
+         */
+
+        //Paso 1 Solicitar valores
+        String codigo;
+        codigo = this.txtCodigo.getText();
+
+        CategVuelo _categVuelo = MDIPrincipal.gCateg.getElementoPorPosicion(this.cboCategVuelo.getSelectedIndex());
+        Aerolinea _aerolinea = MDIPrincipal.gAero.getElementoPorPosicion(this.cboAerolinea.getSelectedIndex());
+
+        Asiento _asiento = MDIPrincipal.gAsiento.getElementoPorPosicion(this.cboAsiento.getSelectedIndex());
+        Origen _origen = MDIPrincipal.gOrigen.getElementoPorPosicion(this.cboOrigen.getSelectedIndex());
+        Destino _destino = MDIPrincipal.gDestino.getElementoPorPosicion(this.cboDestino.getSelectedIndex());
+        NumPuerta _numPuerta = MDIPrincipal.gNPuerta.getElementoPorPosicion(this.cboNumPuerta.getSelectedIndex());
+        Fecha _fecha = MDIPrincipal.gFecha.getElementoPorPosicion(this.cboFecha.getSelectedIndex());
+        HoraAbordaje _horaAbordaje = MDIPrincipal.gHora.getElementoPorPosicion(this.cboHoraAbordaje.getSelectedIndex());
+        Pasajero _pasajero = MDIPrincipal.gPasajero.getElementoPorPosicion(this.cboPasajero.getSelectedIndex());
+
+        try {
+            //Paso 2 Crear instancia
+            Boleto _boleto = new Boleto();
+
+            //Paso 3 Setear valores a instancia
+            _boleto.set_categoriaVuelo(_categVuelo);
+            _boleto.set_aerolinea(_aerolinea);
+            _boleto.set_asiento(_asiento);
+            _boleto.set_destino(_destino);
+            _boleto.set_fecha(_fecha);
+            _boleto.set_horaAbordaje(_horaAbordaje);
+            _boleto.set_numPuerta(_numPuerta);
+            _boleto.set_origen(_origen);
+            _boleto.set_pasajero(_pasajero);
+
+            //Paso 4 Agregar instancia a la gestion
+            if (_agregando) {
+                MDIPrincipal.gBoleto.Agregar(_boleto);
+            } else { //Editara
+                //Paso 1.1
+                codigo = this.txtCodigo.getText();
+                //Paso 3.1
+                _boleto.set_codigo(Integer.parseInt(codigo));
+
+                MDIPrincipal.gBoleto.Modificar(_indiceSeleccion, _boleto);
+            }
+
+            //Paso 5 Mostrar valores
+            actualizarElementosTabla();
+
+            AdminSerializacion.serializacion(MDIPrincipal.gBoleto, "gBoleto.obj");
+            estadoBotones(true);
+            estadoCombos(false);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar" + e.getMessage());
+        }
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
+        String _codigoBoleto = JOptionPane.showInputDialog("Ingrese el código");
+        Boleto _BoletoEncontrado = MDIPrincipal.gBoleto.BuscarPorIdGetElem(Integer.parseInt(_codigoBoleto));
+        if (_BoletoEncontrado == null) {
+            JOptionPane.showMessageDialog(this, "Elemento no encontrado");
+        } else {
+            mostrarElemento(_BoletoEncontrado);
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        _agregando = false;
+        estadoBotones(false);
+        estadoCombos(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         dispose();
-        
+
     }//GEN-LAST:event_btnSalirActionPerformed
 
+    private void cboHoraAbordajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboHoraAbordajeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboHoraAbordajeActionPerformed
+
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        // TODO add your handling code here:
+        AdminArchivos adminA = new AdminArchivos();
+        adminA.setNombreArchivo("Reporte Boleto.csv");
+        adminA.setContenido(MDIPrincipal.gBoleto.getInfoReporte());
+        adminA.escribir();
+        Toolkit.getDefaultToolkit().beep();
+        JOptionPane.showMessageDialog(this, "Reporte generado correctamente");
+    }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void jtBoletoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtBoletoMousePressed
+        // TODO add your handling code here:
+        _indiceSeleccion = jtBoleto.getSelectedRow();
+        if (_indiceSeleccion != -1) {
+            Boleto _boleto = MDIPrincipal.gBoleto.getElementoPorPosicion(_indiceSeleccion);
+            mostrarElemento(_boleto);
+        }
+    }//GEN-LAST:event_jtBoletoMousePressed
+
+    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodigoActionPerformed
+
+    public void mostrarElemento(Boleto _boleto) {
+        this.txtCodigo.setText(Integer.toString(_boleto.get_codigo()));
+        int _indice;
+        Pasajero _pasajero = _boleto.get_pasajero();
+        _indice = MDIPrincipal.gPasajero.BuscarPorId(_pasajero.get_codigo());
+        this.cboPasajero.setSelectedIndex(_indice);
+
+        Origen _origen = _boleto.get_origen();
+        _indice = MDIPrincipal.gOrigen.BuscarPorcodigo(_origen.get_codigo());
+        this.cboOrigen.setSelectedIndex(_indice);
+
+        Destino _destino = _boleto.get_destino();
+        _indice = MDIPrincipal.gDestino.BuscarPorcodigo(_destino.get_codigo());
+        this.cboDestino.setSelectedIndex(_indice);
+
+        NumPuerta _numpuerta = _boleto.get_numPuerta();
+        _indice = MDIPrincipal.gNPuerta.BuscarPorcodigo(_numpuerta.get_codigo());
+        this.cboNumPuerta.setSelectedIndex(_indice);
+
+        HoraAbordaje _horaAbordaje = _boleto.get_horaAbordaje();
+        _indice = MDIPrincipal.gHora.BuscarPorcodigo(_horaAbordaje.get_codigo());
+        this.cboHoraAbordaje.setSelectedIndex(_indice);
+
+        Fecha _fecha = _boleto.get_fecha();
+        _indice = MDIPrincipal.gFecha.BuscarPorcodigo(_fecha.get_codigo());
+        this.cboFecha.setSelectedIndex(_indice);
+
+        CategVuelo _categVuelo = _boleto.get_categoriaVuelo();
+        _indice = MDIPrincipal.gCateg.BuscarPorId(_categVuelo.get_codigo());
+        this.cboCategVuelo.setSelectedIndex(_indice);
+
+        Asiento _asiento = _boleto.get_asiento();
+        _indice = MDIPrincipal.gAsiento.BuscarPorcodigo(_asiento.get_codigo());
+        this.cboAsiento.setSelectedIndex(_indice);
+
+        Aerolinea _aerolinea = _boleto.get_aerolinea();
+        _indice = MDIPrincipal.gAero.BuscarPorcodigo(_aerolinea.get_codigo());
+        this.cboAerolinea.setSelectedIndex(_indice);
+
+    }
+
+    public void actualizarElementosTabla() {
+        // String codigo, pasajero, origen, destino, puerta, hora, fecha, categoria, asiento, aerolinea
+        String[] titulos = {"Código", "Pasajero", " Origen", " Destino", " Número de Puerta", " Hora de Abordaje", " Fecha", " Categoria de Vuelo", " Número de Asiento", " Aerolinea"};
+        DefaultTableModel dt = new DefaultTableModel(MDIPrincipal.gBoleto.GetArrayGestion(), titulos);
+        this.jtBoleto.setModel(dt);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -333,6 +606,7 @@ public class FrmBoleto extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cboNumPuerta;
     private javax.swing.JComboBox<String> cboOrigen;
     private javax.swing.JComboBox<String> cboPasajero;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -342,9 +616,8 @@ public class FrmBoleto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jtBoleto;
+    private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }

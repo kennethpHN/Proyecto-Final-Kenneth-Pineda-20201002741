@@ -3,6 +3,7 @@ package gestiones;
 import clases.Pasajero;
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.swing.DefaultComboBoxModel;
 
 public class GestionPasajero implements Serializable {
 
@@ -127,10 +128,18 @@ public class GestionPasajero implements Serializable {
 
     }
 
+    public DefaultComboBoxModel getCboModel() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < lstPasajero.size(); i++) {
+            model.addElement(lstPasajero.get(i).get_nombre() + " " + lstPasajero.get(i).get_apellido());
+        }
+        return model;
+    }
+
     public String getInfoReporte() {
         String _resultado = "Código; DNI; Nombres; Apellidos; \n";
         for (int i = 0; i < lstPasajero.size(); i++) {
-            _resultado += lstPasajero.get(i).get_codigo() + ";" + lstPasajero.get(i).get_dni() + ";"+lstPasajero.get(i).get_nombre()+ ";" + lstPasajero.get(i).get_apellido()+ ";\n";
+            _resultado += lstPasajero.get(i).get_codigo() + ";" + lstPasajero.get(i).get_dni() + ";" + lstPasajero.get(i).get_nombre() + ";" + lstPasajero.get(i).get_apellido() + ";\n";
         }
         return _resultado;
     }

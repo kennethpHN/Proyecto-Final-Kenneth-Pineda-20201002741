@@ -3,6 +3,7 @@ package gestiones;
 import clases.Origen;
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.swing.DefaultComboBoxModel;
 
 public class GestionOrigen implements Serializable {
 
@@ -122,6 +123,14 @@ public class GestionOrigen implements Serializable {
     public Origen getElementoPorPosicion(int posicion) {
         return lstOrigen.get(posicion);
 
+    }
+
+    public DefaultComboBoxModel getCboModel() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < lstOrigen.size(); i++) {
+            model.addElement(lstOrigen.get(i).get_descripcion());
+        }
+        return model;
     }
 
     public String getInfoReporte() {

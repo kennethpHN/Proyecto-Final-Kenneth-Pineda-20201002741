@@ -3,6 +3,7 @@ package gestiones;
 import clases.Fecha;
 import java.io.Serializable;
 import java.util.LinkedList;
+import javax.swing.DefaultComboBoxModel;
 
 public class GestionFecha implements Serializable {
 
@@ -122,6 +123,14 @@ public class GestionFecha implements Serializable {
     public Fecha getElementoPorPosicion(int posicion) {
         return lstFecha.get(posicion);
 
+    }
+
+    public DefaultComboBoxModel getCboModel() {
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+        for (int i = 0; i < lstFecha.size(); i++) {
+            model.addElement(lstFecha.get(i).get_descripcion());
+        }
+        return model;
     }
 
     public String getInfoReporte() {

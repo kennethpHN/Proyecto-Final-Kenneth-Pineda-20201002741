@@ -70,15 +70,15 @@ public class GestionBoleto implements Serializable {
         for (int i = 0; i < lstBoleto.size(); i++) {
             System.out.println(lstBoleto.get(i));
             array[i][0] = lstBoleto.get(i).get_codigo();
-            array[i][1] = lstBoleto.get(i).get_pasajero();
-            array[i][2] = lstBoleto.get(i).get_origen();
-            array[i][3] = lstBoleto.get(i).get_destino();
-            array[i][4] = lstBoleto.get(i).get_numPuerta();
-            array[i][5] = lstBoleto.get(i).get_horaAbordaje();
-            array[i][6] = lstBoleto.get(i).get_fecha();
-            array[i][7] = lstBoleto.get(i).get_categoriaVuelo();
-            array[i][8] = lstBoleto.get(i).get_asiento();
-            array[i][9] = lstBoleto.get(i).get_aerolinea();
+            array[i][1] = lstBoleto.get(i).get_pasajero().get_nombre() + "" + lstBoleto.get(i).get_pasajero().get_apellido();
+            array[i][2] = lstBoleto.get(i).get_origen().get_descripcion();
+            array[i][3] = lstBoleto.get(i).get_destino().get_descripcion();
+            array[i][4] = lstBoleto.get(i).get_numPuerta().get_codigo();
+            array[i][5] = lstBoleto.get(i).get_horaAbordaje().get_descripcion();
+            array[i][6] = lstBoleto.get(i).get_fecha().get_descripcion();
+            array[i][7] = lstBoleto.get(i).get_categoriaVuelo().get_descripcion();
+            array[i][8] = lstBoleto.get(i).get_asiento().get_codigo();
+            array[i][9] = lstBoleto.get(i).get_aerolinea().get_descripcion();
 
         }
         return array;
@@ -137,10 +137,11 @@ public class GestionBoleto implements Serializable {
         // String codigo, pasajero, origen, destino, puerta, hora, fecha, categoria, asiento, aerolinea
         String _resultado = "Código; Pasajero; Origen; Destino; Numero de Puerta; Hora de Abordaje; Fecha; Categoria de Vuelo; Número de Asiento; Aerolinea ; \n";
         for (int i = 0; i < lstBoleto.size(); i++) {
-            _resultado += lstBoleto.get(i).get_codigo() + ";" + lstBoleto.get(i).get_pasajero() + ";" + lstBoleto.get(i).get_origen()
-                    + ";" + lstBoleto.get(i).get_destino() + ";" + lstBoleto.get(i).get_numPuerta() + ";" + lstBoleto.get(i).get_horaAbordaje()
-                    + ";" + lstBoleto.get(i).get_fecha() + ";" + lstBoleto.get(i).get_categoriaVuelo()
-                    + ";" + lstBoleto.get(i).get_asiento() + ";" + lstBoleto.get(i).get_aerolinea() + ";\n";
+            _resultado += lstBoleto.get(i).get_codigo() + ";" + lstBoleto.get(i).get_pasajero().get_nombre() + " " + lstBoleto.get(i).get_pasajero().get_apellido() 
+                    + ";" + lstBoleto.get(i).get_origen().get_descripcion()
+                    + ";" + lstBoleto.get(i).get_destino().get_descripcion() + ";" + lstBoleto.get(i).get_numPuerta().get_codigo()+ ";" + lstBoleto.get(i).get_horaAbordaje().get_descripcion()
+                    + ";" + lstBoleto.get(i).get_fecha().get_descripcion() + ";" + lstBoleto.get(i).get_categoriaVuelo().get_descripcion()
+                    + ";" + lstBoleto.get(i).get_asiento().get_codigo()+ ";" + lstBoleto.get(i).get_aerolinea().get_descripcion() + ";\n";
         }
         return _resultado;
     }
