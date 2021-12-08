@@ -46,20 +46,30 @@ public class Factura implements Calculo, Serializable {
     }
 
     /**
-     * Metodo para obtener detalle por el codigo de producto
+     * Metodo para obtener detalle por el codigo de boleto
      *
-     * @param codigoProducto objeto de tipo int
+     * @param codigoBoleto objeto de tipo int
      * @return posicion del elemento encontrado
      */
-    public int obtenerDetallePorCodigoProducto(int codigoProducto) {
+    public int obtenerDetallePorCodigoBoleto(int codigoBoleto) {
         int posicion = -1;
         for (int i = 0; i <= _detalleFactura.size(); i++) {
-            if (this._detalleFactura.get(i).get_boleto().get_codigo() == codigoProducto) {
+            if (this._detalleFactura.get(i).get_boleto().get_codigo() == codigoBoleto) {
                 posicion = i;
                 break;
             }
         }
         return posicion;
+    }
+
+    /**
+     * Metodo para obtener detalle por posicion
+     *
+     * @param _posicion 
+     * @return  elemento encontrado
+     */
+    public DetalleFactura obtenerDetallePorPosicion(int _posicion) {
+        return this._detalleFactura.get(_posicion);
     }
 
     /**
@@ -79,6 +89,21 @@ public class Factura implements Calculo, Serializable {
     public void imprimirDetalle() {
         for (int i = 0; i < _detalleFactura.size(); i++) {
             System.out.println(_detalleFactura.get(i));
+        }
+    }
+
+    /**
+     * Metodo para eliminar elementos de la coleccion
+     *
+     * @param posicion del elemento a eliminar
+     * @return true - si todo se realizo correctamente
+     */
+    public boolean Eliminar(int posicion) {
+        if (posicion < 0 || posicion > _detalleFactura.size()) {
+            return false;
+        } else {
+            _detalleFactura.remove(posicion);
+            return true;
         }
     }
 

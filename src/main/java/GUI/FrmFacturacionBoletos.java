@@ -30,7 +30,7 @@ public class FrmFacturacionBoletos extends javax.swing.JInternalFrame {
     private Aerolinea _aerolineaFactura;
     private Factura _facturaEncontrada;
     private int _posicionFactura;
-    private int _posicionFactura2;
+    private int _posicionDetalle;
 
     public FrmFacturacionBoletos() {
         initComponents();
@@ -326,22 +326,6 @@ public class FrmFacturacionBoletos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarAsesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAsesorActionPerformed
-
-        String _codigoAsesorServ = JOptionPane.showInputDialog(this, "Código del Asesor");
-
-        _asesorServFactura = MDIPrincipal.gAsesor.BuscarPorcodigoGetElem(Integer.parseInt(_codigoAsesorServ));
-
-        if (_asesorServFactura != null) {
-            this.lblAsesor.setText(_asesorServFactura.get_nombre() + " " + _asesorServFactura.get_apellido());
-        } else {
-            Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(this, "Elemento no encontrado");
-        }
-
-
-    }//GEN-LAST:event_btnBuscarAsesorActionPerformed
-
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         // TODO add your handling code here:
         String _codigoCliente = JOptionPane.showInputDialog(this, "Código del cliente");
@@ -428,7 +412,7 @@ public class FrmFacturacionBoletos extends javax.swing.JInternalFrame {
         MDIPrincipal.frmFacturacion.actualizarElementosTabla();
         AdminSerializacion.serializacion(MDIPrincipal.gFactura, "gFactura.obj");
         actualizarElementosTabla();
-        
+
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -443,33 +427,54 @@ public class FrmFacturacionBoletos extends javax.swing.JInternalFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
         this.dispose();
-        limpiarFormulario();
+        //limpiarFormulario();
         btnBuscarCliente.setEnabled(true);
         btnBuscarAsesor.setEnabled(true);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        /*if (_posicionFactura2 >= 0) {
-            int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
-            if (resultado == JOptionPane.YES_OPTION) {
-                MDIPrincipal.gFactura.Eliminar(_posicionFactura2);
-                actualizarElementosTabla();
+        try {
+            if (_posicionDetalle >= 0) {
+                int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
+                if (resultado == JOptionPane.YES_OPTION) {
+                    MDIPrincipal.gFactura.getLstFactura().get(_posicionFactura).Eliminar(_posicionDetalle);
+                    actualizarElementosTabla();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
-        }*/
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
 
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void jtFacturacionBoletosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtFacturacionBoletosMousePressed
         // TODO add your handling code here:
-        _posicionFactura = jtFacturacionBoletos.getSelectedRow();
-        if (_posicionFactura != -1) {
-            Factura _factura = MDIPrincipal.gFactura.getElementoPorPosicion(_posicionFactura);
+        _posicionDetalle = jtFacturacionBoletos.getSelectedRow();
+        if (_posicionDetalle != -1) {
+            _posicionFactura = MDIPrincipal.gFactura.BuscarPorId(Integer.parseInt(lblNoFactura.getText()));
+            DetalleFactura _detalle = this._facturaEncontrada.obtenerDetallePorPosicion(_posicionFactura);
             //mostrarElemento(_facturaEliminar);
         }
     }//GEN-LAST:event_jtFacturacionBoletosMousePressed
+
+    private void btnBuscarAsesorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarAsesorActionPerformed
+
+        String _codigoAsesorServ = JOptionPane.showInputDialog(this, "Código del Asesor");
+
+        _asesorServFactura = MDIPrincipal.gAsesor.BuscarPorcodigoGetElem(Integer.parseInt(_codigoAsesorServ));
+
+        if (_asesorServFactura != null) {
+            this.lblAsesor.setText(_asesorServFactura.get_nombre() + " " + _asesorServFactura.get_apellido());
+        } else {
+            Toolkit.getDefaultToolkit().beep();
+            JOptionPane.showMessageDialog(this, "Elemento no encontrado");
+        }
+
+    }//GEN-LAST:event_btnBuscarAsesorActionPerformed
 
     private void limpiarFormulario() {
         _boletoFactura = null;

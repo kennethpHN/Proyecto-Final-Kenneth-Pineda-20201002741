@@ -7,9 +7,18 @@ package GUI;
 import Util.AdminSerializacion;
 import gestiones.*;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URL;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JDesktopPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-
 
 /**
  *
@@ -37,18 +46,43 @@ public class MDIPrincipal extends javax.swing.JFrame {
     public static GestionFecha gFecha = new GestionFecha();
     public static GestionFactura gFactura = new GestionFactura();
 
+    private BufferedImage img;
+
     public MDIPrincipal() {
         initComponents();
-        super.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        //super.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
 
-
+        
+        
+        //jLabel2.setSize(MAXIMIZED_HORIZ,MAXIMIZED_VERT);
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
             SwingUtilities.updateComponentTreeUI(this);
+
         } catch (Exception e) {
             System.out.println("Error setting the LAF..." + e);
         }
+
+        /*try {
+            img = ImageIO.read(new URL("https://i.stack.imgur.com/0ZYY8.png"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        desktopPane = new JDesktopPane() {
+            @Override
+            protected void paintComponent(Graphics grphcs) {
+                super.paintComponent(grphcs);
+                grphcs.drawImage(img, 0, 0, null);
+            }
+
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(img.getWidth(), img.getHeight());
+            }
+        };*/
+
 
         //De-Serialización
         try {
@@ -179,7 +213,16 @@ public class MDIPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        desktopPane = new javax.swing.JDesktopPane();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/test.jpg"));
+        Image img=icon.getImage();
+        desktopPane = new javax.swing.JDesktopPane(){
+
+            public void paintComponent(Graphics g)
+            {
+                g.drawImage(img,0,0,getWidth(),
+                    getHeight(),this);
+            }
+        };
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         mnuBoletos = new javax.swing.JMenuItem();
@@ -361,11 +404,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 1095, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
         );
 
         pack();

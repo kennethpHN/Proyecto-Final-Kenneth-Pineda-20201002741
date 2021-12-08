@@ -6,6 +6,7 @@ package GUI;
 
 import Util.AdminArchivos;
 import Util.AdminSerializacion;
+import clases.Factura;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -16,12 +17,15 @@ import javax.swing.table.DefaultTableModel;
  * @author Pinedas
  */
 public class FrmFacturacion extends javax.swing.JInternalFrame {
+    
+    private int _posicionFacturacion;
 
     /**
      * Creates new form FrmFactura
      */
     public FrmFacturacion() {
         initComponents();
+
     }
 
     /**
@@ -37,12 +41,11 @@ public class FrmFacturacion extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtFactura = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnBoletos = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        btnRefrescar = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(232, 232, 232));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listado de Facturas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -69,6 +72,11 @@ public class FrmFacturacion extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jtFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jtFacturaMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtFactura);
 
         btnNuevo.setText("Nuevo");
@@ -77,8 +85,6 @@ public class FrmFacturacion extends javax.swing.JInternalFrame {
                 btnNuevoActionPerformed(evt);
             }
         });
-
-        jButton2.setText("Editar");
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,11 +100,27 @@ public class FrmFacturacion extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton5.setText("Eliminar");
-
-        jButton6.setText("Buscar");
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Salir");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        btnRefrescar.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        btnRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-refresh-30.png"))); // NOI18N
+        btnRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefrescarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -107,51 +129,49 @@ public class FrmFacturacion extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNuevo)
-                    .addComponent(jButton2)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnBoletos)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBoletos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRefrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBoletos, btnGuardar, btnNuevo, jButton2, jButton5, jButton6, jButton7});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBoletos, btnEliminar, btnGuardar, btnNuevo, jButton7});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRefrescar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnNuevo)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
                         .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(btnBoletos)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton6)
+                        .addComponent(btnEliminar)
                         .addGap(18, 18, 18)
                         .addComponent(jButton7)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBoletos, btnGuardar, btnNuevo, jButton2, jButton5, jButton6, jButton7});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBoletos, btnEliminar, btnGuardar, btnNuevo, jButton7});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
@@ -162,6 +182,8 @@ public class FrmFacturacion extends javax.swing.JInternalFrame {
         MDIPrincipal.frmFacturacionBoletos.setVisible(true);
         MDIPrincipal.frmFacturacionBoletos._agregando = true;
         MDIPrincipal.frmFacturacionBoletos.inicioFormulario();
+        actualizarElementosTabla();
+
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnBoletosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBoletosActionPerformed
@@ -183,7 +205,6 @@ public class FrmFacturacion extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        AdminSerializacion.serializacion(MDIPrincipal.gFactura, "gFactura.obj");
         AdminArchivos adminA = new AdminArchivos();
         adminA.setNombreArchivo("Reporte Facturas.csv");
         adminA.setContenido(MDIPrincipal.gFactura.getInfoReporte());
@@ -191,6 +212,43 @@ public class FrmFacturacion extends javax.swing.JInternalFrame {
         Toolkit.getDefaultToolkit().beep();
         JOptionPane.showMessageDialog(this, "Reporte generado correctamente");
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        try {
+            if (_posicionFacturacion >= 0) {
+                int resultado = JOptionPane.showConfirmDialog(null, "¿Está seguro?", "Warning", JOptionPane.YES_NO_OPTION);
+                if (resultado == JOptionPane.YES_OPTION) {
+                    MDIPrincipal.gFactura.Eliminar(_posicionFacturacion);
+                    actualizarElementosTabla();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Favor seleccione el elemento de la tabla que desea eliminar");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefrescarActionPerformed
+        // TODO add your handling code here:
+        actualizarElementosTabla();
+    }//GEN-LAST:event_btnRefrescarActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jtFacturaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtFacturaMousePressed
+        // TODO add your handling code here:
+        _posicionFacturacion = jtFactura.getSelectedRow();
+        if (_posicionFacturacion != -1) {
+            Factura _factura = MDIPrincipal.gFactura.getElementoPorPosicion(_posicionFacturacion);
+            //mostrarElemento(_facturaEliminar);
+        }
+    }//GEN-LAST:event_jtFacturaMousePressed
 
     public void actualizarElementosTabla() {
         // String codigo, dni, nombre, apellido
@@ -201,11 +259,10 @@ public class FrmFacturacion extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBoletos;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton btnRefrescar;
     private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

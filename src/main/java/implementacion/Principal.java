@@ -386,7 +386,7 @@ public class Principal {
 							System.out.println("Ingrese el codigo del boleto a modificar");
 							facturaEncontrada.imprimirDetalle();
 							codSelecBol = sc.nextInt();
-							posSelecBol=facturaEncontrada.obtenerDetallePorCodigoProducto(codSelecBol);
+							posSelecBol=facturaEncontrada.obtenerDetallePorCodigoBoleto(codSelecBol);
 							centinelaBl2=true;
 							while(centinelaBl2) {
 								/*
