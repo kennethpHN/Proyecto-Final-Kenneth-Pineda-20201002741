@@ -9,14 +9,8 @@ import gestiones.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.net.URL;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
@@ -29,6 +23,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
     public static FrmFacturacionBoletos frmFacturacionBoletos = new FrmFacturacionBoletos();
     public static FrmFacturacion frmFacturacion = new FrmFacturacion();
 
+    
     /**
      * Ubicar todas las gestiones
      */
@@ -50,11 +45,12 @@ public class MDIPrincipal extends javax.swing.JFrame {
 
     public MDIPrincipal() {
         initComponents();
-        //super.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        this.setTitle("Sistema de Facturación de Aeropuerto");
+        super.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
 
         
         
-        //jLabel2.setSize(MAXIMIZED_HORIZ,MAXIMIZED_VERT);
+        
 
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -213,7 +209,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ImageIcon icon = new ImageIcon(getClass().getResource("/test.jpg"));
+        ImageIcon icon = new ImageIcon(getClass().getResource("/test2.jpg"));
         Image img=icon.getImage();
         desktopPane = new javax.swing.JDesktopPane(){
 
@@ -242,11 +238,10 @@ public class MDIPrincipal extends javax.swing.JFrame {
         exitMenuItem = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         btnFacturacion = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
-        contentMenuItem = new javax.swing.JMenuItem();
-        aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        menuBar.setBackground(new java.awt.Color(153, 153, 153));
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Gestion");
@@ -384,19 +379,6 @@ public class MDIPrincipal extends javax.swing.JFrame {
         editMenu.add(btnFacturacion);
 
         menuBar.add(editMenu);
-
-        helpMenu.setMnemonic('h');
-        helpMenu.setText("Help");
-
-        contentMenuItem.setMnemonic('c');
-        contentMenuItem.setText("Contents");
-        helpMenu.add(contentMenuItem);
-
-        aboutMenuItem.setMnemonic('a');
-        aboutMenuItem.setText("About");
-        helpMenu.add(aboutMenuItem);
-
-        menuBar.add(helpMenu);
 
         setJMenuBar(menuBar);
 
@@ -580,6 +562,7 @@ public class MDIPrincipal extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -614,14 +597,11 @@ public class MDIPrincipal extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem btnFacturacion;
-    private javax.swing.JMenuItem contentMenuItem;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem mnuAerolinea;
     private javax.swing.JMenuItem mnuAsesor;

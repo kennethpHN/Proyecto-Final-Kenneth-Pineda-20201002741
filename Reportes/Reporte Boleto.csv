@@ -1,5 +1,4 @@
 Código; Pasajero; Origen; Destino; Numero de Puerta; Hora de Abordaje; Fecha; Categoria de Vuelo; Número de Asiento; Aerolinea ; 
-1;Kevin Josue Sarmiento;Tegucigalpa - Honduras;Miami - Florida;1;10:00 PM;Mon Apr 18 00:00:00 CST 2022;Clase Económica;1;Avianca;
-2;Karen Dalila Reyes;Comayagua - Honduras;San Salvador - El Salvador;3;7:00 PM;Fri Aug 05 00:00:00 CST 2022;Clase Ejecutiva;2;Spirit;
-3;Juana Garcia;San Pedro Sula - Honduras;San Salvador - El Salvador;4;7:00 PM;Fri Aug 05 00:00:00 CST 2022;Primera Clase;3;American Airlines;
-4;Junior Javier Mondragon ;San Pedro Sula - Honduras;San Salvador - El Salvador;4;7:00 PM;Fri Aug 05 00:00:00 CST 2022;Primera Clase;4;American Airlines;
+1;Juan Ordoñez;Tegucigalpa - Honduras;Miami - Florida;1;10:00 PM;Mon Apr 18 00:00:00 CST 2022;Clase Económica;1;Avianca;
+2;John Perez;Tegucigalpa - Honduras;Miami - Florida;4;10:00 PM;Mon Apr 18 00:00:00 CST 2022;Clase Económica;2;Spirit;
+3;Maria Almendarez;Comayagua - Honduras;Chicago -Ilinois;2;7:00 PM;Fri Aug 05 00:00:00 CST 2022;Clase Ejecutiva;5;American Airlines;

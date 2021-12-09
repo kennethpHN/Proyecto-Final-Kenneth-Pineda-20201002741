@@ -25,7 +25,7 @@ public class FrmCategVuelo extends javax.swing.JInternalFrame {
 
     public FrmCategVuelo() {
         initComponents();
-        this.setTitle("Gestión de Ciudad de CategVuelo");
+        this.setTitle("Gestión de Categoria de Vuelo");
         actualizarElementosTabla();
         
     }

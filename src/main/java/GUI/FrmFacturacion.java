@@ -25,6 +25,7 @@ public class FrmFacturacion extends javax.swing.JInternalFrame {
      */
     public FrmFacturacion() {
         initComponents();
+        this.setTitle("Facturación");
 
     }
 

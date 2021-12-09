@@ -137,7 +137,9 @@ public class GestionCategVuelo implements Serializable {
     public String getInfoReporte() {
         String _resultado = "Código; precio ;Descripción; \n";
         for (int i = 0; i < lstCategVuelo.size(); i++) {
-            _resultado += lstCategVuelo.get(i).get_codigo() + ";" + lstCategVuelo.get(i).get_precio() + ";" + lstCategVuelo.get(i).get_descripcion() + ";\n";
+            _resultado += lstCategVuelo.get(i).get_codigo() 
+                    + ";" + lstCategVuelo.get(i).get_precio() 
+                    + ";" + lstCategVuelo.get(i).get_descripcion() + ";\n";
         }
         return _resultado;
     }
